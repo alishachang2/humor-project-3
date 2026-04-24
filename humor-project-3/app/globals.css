@@ -9,6 +9,8 @@
   --accent: #1a1a1a;
   --accent-fg: #ffffff;
   --green: #BDE081;
+  --status-done: #1e8a4a;
+  --status-error: #c0392b;
 }
 
 .dark {
@@ -20,6 +22,8 @@
   --accent: #f0f0f0;
   --accent-fg: #0f0f0f;
   --green: #BDE081;
+  --status-done: #5dde8e;
+  --status-error: #e05c5c;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }

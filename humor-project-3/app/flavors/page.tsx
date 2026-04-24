@@ -317,6 +317,45 @@ export default function FlavorsPage() {
     loadFlavors()
   }
 
+  async function duplicateFlavor(flavor: Flavor, e: React.MouseEvent) {
+    e.stopPropagation()
+    const supabase = createClient()
+    const { data: { user } } = await supabase.auth.getUser()
+
+    // Build a unique slug: append -copy, then -copy-2, -copy-3, etc.
+    const base = `${flavor.slug}-copy`
+    const existing = flavors.map(f => f.slug)
+    let slug = base
+    let n = 2
+    while (existing.includes(slug)) { slug = `${base}-${n++}` }
+
+    const { data: newFlavor, error } = await supabase
+      .from('humor_flavors')
+      .insert({ slug, description: flavor.description, created_by_user_id: user?.id, modified_by_user_id: user?.id })
+      .select()
+      .single()
+
+    if (error || !newFlavor) return
+
+    // Copy all steps, preserving order and all prompt fields
+    const { data: sourceSteps } = await supabase
+      .from('humor_flavor_steps')
+      .select('*')
+      .eq('humor_flavor_id', flavor.id)
+      .order('order_by', { ascending: true })
+
+    if (sourceSteps && sourceSteps.length > 0) {
+      const copies = sourceSteps.map(({ id: _id, humor_flavor_id: _fid, ...rest }: any) => ({
+        ...rest,
+        humor_flavor_id: newFlavor.id,
+        created_by_user_id: user?.id,
+      }))
+      await supabase.from('humor_flavor_steps').insert(copies)
+    }
+
+    loadFlavors()
+  }
+
   // ── steps ─────────────────────────────────────────────────────────────────
 
   const loadSteps = useCallback(async (flavorId: number) => {
@@ -612,13 +651,22 @@ export default function FlavorsPage() {
                         </p>
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                           <span style={{ fontSize: 10, color: 'var(--text2)', letterSpacing: '0.08em', textTransform: 'uppercase' }}>View steps →</span>
-                          <button
-                            type="button"
-                            onClick={e => { e.stopPropagation(); deleteFlavor(flavor.id) }}
-                            style={{ fontSize: 10, color: '#c0392b', background: 'none', border: 'none', cursor: 'pointer', letterSpacing: '0.06em', textTransform: 'uppercase' }}
-                          >
-                            Delete
-                          </button>
+                          <div style={{ display: 'flex', gap: 10 }}>
+                            <button
+                              type="button"
+                              onClick={e => duplicateFlavor(flavor, e)}
+                              style={{ fontSize: 10, color: 'var(--text2)', background: 'none', border: 'none', cursor: 'pointer', letterSpacing: '0.06em', textTransform: 'uppercase' }}
+                            >
+                              Duplicate
+                            </button>
+                            <button
+                              type="button"
+                              onClick={e => { e.stopPropagation(); deleteFlavor(flavor.id) }}
+                              style={{ fontSize: 10, color: 'var(--status-error)', background: 'none', border: 'none', cursor: 'pointer', letterSpacing: '0.06em', textTransform: 'uppercase' }}
+                            >
+                              Delete
+                            </button>
+                          </div>
                         </div>
                       </div>
                     ))}
@@ -769,7 +817,7 @@ export default function FlavorsPage() {
                               <span style={{ fontSize: 10, color: 'var(--text2)', flex: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{row.imageId}</span>
                               <span style={{
                                 fontSize: 9, letterSpacing: '0.1em', textTransform: 'uppercase', fontWeight: 600,
-                                color: row.status === 'done' ? '#27ae60' : row.status === 'error' ? '#c0392b' : row.status === 'running' ? 'var(--accent)' : 'var(--text2)',
+                                color: row.status === 'done' ? 'var(--status-done)' : row.status === 'error' ? 'var(--status-error)' : row.status === 'running' ? 'var(--accent)' : 'var(--text2)',
                               }}>
                                 {row.status === 'running' ? '●' : row.status === 'done' ? '✓' : row.status === 'error' ? '✗' : '·'} {row.status}
                               </span>
@@ -883,7 +931,7 @@ export default function FlavorsPage() {
                         <button
                           type="button"
                           onClick={() => { generateCaptionsForSet(set); setShowLibrary(false) }}
-                          style={{ fontSize: 10, padding: '5px 10px', border: '1px solid var(--accent)', borderRadius: 4, background: 'var(--accent)', color: '#fff', cursor: 'pointer', letterSpacing: '0.06em', textTransform: 'uppercase', whiteSpace: 'nowrap' }}
+                          style={{ fontSize: 10, padding: '5px 10px', border: '1px solid var(--accent)', borderRadius: 4, background: 'var(--accent)', color: 'var(--accent-fg)', cursor: 'pointer', letterSpacing: '0.06em', textTransform: 'uppercase', whiteSpace: 'nowrap' }}
                         >
                           Run Set
                         </button>
