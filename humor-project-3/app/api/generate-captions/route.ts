@@ -36,8 +36,19 @@ export async function POST(req: NextRequest) {
 
   // redirect means the API rejected the token and sent us to /login
   if (upstream.status >= 300 && upstream.status < 400) {
+    const cookieNames = cookieHeader
+      .split(';')
+      .map(c => c.trim().split('=')[0])
+      .filter(Boolean)
     return NextResponse.json(
-      { error: `Pipeline API requires authentication (redirected to login). Status: ${upstream.status}` },
+      {
+        error: `Pipeline API requires authentication (redirected to login). Status: ${upstream.status}`,
+        debug: {
+          redirectLocation: upstream.headers.get('location'),
+          cookieNamesForwarded: cookieNames,
+          hasCookies: cookieNames.length > 0,
+        },
+      },
       { status: 401 }
     )
   }
