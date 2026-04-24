@@ -7,11 +7,16 @@ export async function POST(req: NextRequest) {
   }
 
   const body = await req.json()
-  const pipelineUrl = process.env.NEXT_PUBLIC_PIPELINE_URL
+  const rawUrl = process.env.NEXT_PUBLIC_PIPELINE_URL
 
-  if (!pipelineUrl) {
+  if (!rawUrl) {
     return NextResponse.json({ error: 'Pipeline URL not configured' }, { status: 500 })
   }
+
+  // force HTTPS — .env.local uses http:// but Vercel env var may too
+  const pipelineUrl = rawUrl.replace(/^http:\/\//i, 'https://')
+
+  const cookieHeader = req.headers.get('cookie') ?? ''
 
   let upstream: Response
   try {
@@ -20,6 +25,7 @@ export async function POST(req: NextRequest) {
       headers: {
         'Authorization': authHeader,
         'Content-Type': 'application/json',
+        ...(cookieHeader ? { 'Cookie': cookieHeader } : {}),
       },
       body: JSON.stringify(body),
       redirect: 'manual',
