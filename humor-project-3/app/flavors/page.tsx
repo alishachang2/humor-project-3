@@ -398,7 +398,7 @@ export default function FlavorsPage() {
       const res = await fetch('/api/generate-captions', {
         method: 'POST',
         headers: { Authorization: `Bearer ${session.access_token}`, 'Content-Type': 'application/json' },
-        body: JSON.stringify({ imageId: testImageId }),
+        body: JSON.stringify({ imageId: testImageId, humorFlavorId: selectedFlavor?.id }),
       })
 
       const data = await res.json().catch(() => null)
@@ -421,20 +421,40 @@ export default function FlavorsPage() {
     setUploading(true); setUploadError('')
     try {
       const supabase = createClient()
-      const ext = file.name.split('.').pop() ?? 'jpg'
-      const path = `uploads/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`
+      const { data: { session } } = await supabase.auth.getSession()
+      if (!session) throw new Error('Not logged in')
 
-      const { error: storageErr } = await supabase.storage.from('images').upload(path, file, { contentType: file.type })
-      if (storageErr) throw new Error(storageErr.message)
+      const token = session.access_token
+      const base = process.env.NEXT_PUBLIC_PIPELINE_URL
 
-      const { data: { publicUrl } } = supabase.storage.from('images').getPublicUrl(path)
+      // Step 1: get presigned S3 upload URL
+      const presignRes = await fetch(`${base}/pipeline/generate-presigned-url`, {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ contentType: file.type }),
+      })
+      if (!presignRes.ok) throw new Error(`Presign failed: ${presignRes.status}`)
+      const { presignedUrl, cdnUrl } = await presignRes.json()
 
-      const { data: inserted, error: dbErr } = await supabase
-        .from('images').insert({ url: publicUrl }).select('id, url').single()
-      if (dbErr) throw new Error(dbErr.message)
+      // Step 2: upload bytes directly to S3
+      const s3Res = await fetch(presignedUrl, {
+        method: 'PUT',
+        headers: { 'Content-Type': file.type },
+        body: file,
+      })
+      if (!s3Res.ok) throw new Error(`S3 upload failed: ${s3Res.status}`)
 
-      setImages(prev => [inserted, ...prev])
-      setTestImageId(String(inserted.id))
+      // Step 3: register the CDN URL with the pipeline
+      const registerRes = await fetch(`${base}/pipeline/upload-image-from-url`, {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ imageUrl: cdnUrl, isCommonUse: false }),
+      })
+      if (!registerRes.ok) throw new Error(`Register failed: ${registerRes.status}`)
+      const { imageId } = await registerRes.json()
+
+      setImages(prev => [{ id: imageId, url: cdnUrl }, ...prev])
+      setTestImageId(imageId)
     } catch (err: any) {
       setUploadError(err.message || 'Upload failed')
     } finally {
