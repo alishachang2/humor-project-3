@@ -12,7 +12,8 @@ export async function POST(req: NextRequest) {
   }
 
   const body = await req.json()
-  const targetUrl = `${pipelineUrl}/pipeline/generate-captions`
+  // Force HTTPS — Vercel env vars sometimes have http:// which causes a 308 redirect
+  const targetUrl = `${pipelineUrl.replace(/^http:\/\//i, 'https://')}/pipeline/generate-captions`
 
   let upstream: Response
   try {
