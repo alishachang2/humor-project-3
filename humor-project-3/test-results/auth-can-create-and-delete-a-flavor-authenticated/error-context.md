@@ -1,0 +1,2303 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: auth.test.ts >> can create and delete a flavor
+- Location: __tests__/e2e/auth.test.ts:19:5
+
+# Error details
+
+```
+Error: expect(locator).not.toBeVisible() failed
+
+Locator:  getByText('playwright-test-1776711193359')
+Expected: not visible
+Received: visible
+Timeout:  5000ms
+
+Call log:
+  - Expect "not toBeVisible" with timeout 5000ms
+  - waiting for getByText('playwright-test-1776711193359')
+    9 × locator resolved to <p>playwright-test-1776711193359</p>
+      - unexpected value "visible"
+
+```
+
+# Page snapshot
+
+```yaml
+- generic [ref=e1]:
+  - generic [ref=e2]:
+    - generic [ref=e5]:
+      - generic [ref=e6]:
+        - paragraph [ref=e7]: Admin
+        - heading "Flavors." [level=1] [ref=e8]:
+          - emphasis [ref=e9]: Flavors.
+      - generic [ref=e10]:
+        - button "☾ Dark" [ref=e11] [cursor=pointer]
+        - button "+ New Flavor" [ref=e12] [cursor=pointer]
+    - generic [ref=e15]:
+      - generic [ref=e16] [cursor=pointer]:
+        - paragraph [ref=e17]: playwright-test-1776711193359
+        - paragraph [ref=e18]: —
+        - generic [ref=e19]:
+          - generic [ref=e20]: View steps →
+          - button "Delete" [active] [ref=e21]
+      - generic [ref=e22] [cursor=pointer]:
+        - paragraph [ref=e23]: nyc-humor-copy-test
+        - paragraph [ref=e24]: New York City related humor... copy
+        - generic [ref=e25]:
+          - generic [ref=e26]: View steps →
+          - button "Delete" [ref=e27]
+      - generic [ref=e28] [cursor=pointer]:
+        - paragraph [ref=e29]: co-lum-bia-copy-3
+        - paragraph [ref=e30]: Columbia Part 1 (Associations Only)
+        - generic [ref=e31]:
+          - generic [ref=e32]: View steps →
+          - button "Delete" [ref=e33]
+      - generic [ref=e34] [cursor=pointer]:
+        - paragraph [ref=e35]: testing-copy-final3
+        - paragraph [ref=e36]: testing
+        - generic [ref=e37]:
+          - generic [ref=e38]: View steps →
+          - button "Delete" [ref=e39]
+      - generic [ref=e40] [cursor=pointer]:
+        - paragraph [ref=e41]: testing-copy-final2
+        - paragraph [ref=e42]: testing
+        - generic [ref=e43]:
+          - generic [ref=e44]: View steps →
+          - button "Delete" [ref=e45]
+      - generic [ref=e46] [cursor=pointer]:
+        - paragraph [ref=e47]: testing-copy-final
+        - paragraph [ref=e48]: testing
+        - generic [ref=e49]:
+          - generic [ref=e50]: View steps →
+          - button "Delete" [ref=e51]
+      - generic [ref=e52] [cursor=pointer]:
+        - paragraph [ref=e53]: testing-copy-3
+        - paragraph [ref=e54]: testing
+        - generic [ref=e55]:
+          - generic [ref=e56]: View steps →
+          - button "Delete" [ref=e57]
+      - generic [ref=e58] [cursor=pointer]:
+        - paragraph [ref=e59]: testing-copy-2
+        - paragraph [ref=e60]: testing
+        - generic [ref=e61]:
+          - generic [ref=e62]: View steps →
+          - button "Delete" [ref=e63]
+      - generic [ref=e64] [cursor=pointer]:
+        - paragraph [ref=e65]: testing-copy-haha
+        - paragraph [ref=e66]: testing
+        - generic [ref=e67]:
+          - generic [ref=e68]: View steps →
+          - button "Delete" [ref=e69]
+      - generic [ref=e70] [cursor=pointer]:
+        - paragraph [ref=e71]: testing
+        - paragraph [ref=e72]: testing
+        - generic [ref=e73]:
+          - generic [ref=e74]: View steps →
+          - button "Delete" [ref=e75]
+      - generic [ref=e76] [cursor=pointer]:
+        - paragraph [ref=e77]: testing_final_season
+        - paragraph [ref=e78]: Make jokes about finals season.
+        - generic [ref=e79]:
+          - generic [ref=e80]: View steps →
+          - button "Delete" [ref=e81]
+      - generic [ref=e82] [cursor=pointer]:
+        - paragraph [ref=e83]: sarcastic-chain-of-columbia-copy-copy
+        - paragraph [ref=e84]: This flavor is for tired columbia students who are failing their midterms.
+        - generic [ref=e85]:
+          - generic [ref=e86]: View steps →
+          - button "Delete" [ref=e87]
+      - generic [ref=e88] [cursor=pointer]:
+        - paragraph [ref=e89]: sarcastic-chain-of-columbia-copy
+        - paragraph [ref=e90]: This flavor is for tired columbia students who are failing their midterms.
+        - generic [ref=e91]:
+          - generic [ref=e92]: View steps →
+          - button "Delete" [ref=e93]
+      - generic [ref=e94] [cursor=pointer]:
+        - paragraph [ref=e95]: some-flavor-test-copy-verify-copy-copy
+        - paragraph [ref=e96]: hello
+        - generic [ref=e97]:
+          - generic [ref=e98]: View steps →
+          - button "Delete" [ref=e99]
+      - generic [ref=e100] [cursor=pointer]:
+        - paragraph [ref=e101]: some-flavor-test-copy-verify-copy
+        - paragraph [ref=e102]: hello
+        - generic [ref=e103]:
+          - generic [ref=e104]: View steps →
+          - button "Delete" [ref=e105]
+      - generic [ref=e106] [cursor=pointer]:
+        - paragraph [ref=e107]: some-flavor-test-copy-verify
+        - paragraph [ref=e108]: hello
+        - generic [ref=e109]:
+          - generic [ref=e110]: View steps →
+          - button "Delete" [ref=e111]
+      - generic [ref=e112] [cursor=pointer]:
+        - paragraph [ref=e113]: reference-holic
+        - paragraph [ref=e114]: mostly references
+        - generic [ref=e115]:
+          - generic [ref=e116]: View steps →
+          - button "Delete" [ref=e117]
+      - generic [ref=e118] [cursor=pointer]:
+        - paragraph [ref=e119]: Copy of covid-copy
+        - paragraph [ref=e120]: 2020 pandemic quarantine humor
+        - generic [ref=e121]:
+          - generic [ref=e122]: View steps →
+          - button "Delete" [ref=e123]
+      - generic [ref=e124] [cursor=pointer]:
+        - paragraph [ref=e125]: Copy of Drama Queen
+        - paragraph [ref=e126]: Being a melancholy drama queen yet AGAIN
+        - generic [ref=e127]:
+          - generic [ref=e128]: View steps →
+          - button "Delete" [ref=e129]
+      - generic [ref=e130] [cursor=pointer]:
+        - paragraph [ref=e131]: covid-copy
+        - paragraph [ref=e132]: 2020 pandemic quarantine humor
+        - generic [ref=e133]:
+          - generic [ref=e134]: View steps →
+          - button "Delete" [ref=e135]
+      - generic [ref=e136] [cursor=pointer]:
+        - paragraph [ref=e137]: political-rage-bait-copy
+        - paragraph [ref=e138]: people feel strong emotions towards politics. let's abuse this.
+        - generic [ref=e139]:
+          - generic [ref=e140]: View steps →
+          - button "Delete" [ref=e141]
+      - generic [ref=e142] [cursor=pointer]:
+        - paragraph [ref=e143]: T_FLqqq
+        - paragraph [ref=e144]: qqq
+        - generic [ref=e145]:
+          - generic [ref=e146]: View steps →
+          - button "Delete" [ref=e147]
+      - generic [ref=e148] [cursor=pointer]:
+        - paragraph [ref=e149]: new-york-city-copy-copy
+        - paragraph [ref=e150]: Copy of copy of new-york-city
+        - generic [ref=e151]:
+          - generic [ref=e152]: View steps →
+          - button "Delete" [ref=e153]
+      - generic [ref=e154] [cursor=pointer]:
+        - paragraph [ref=e155]: new-york-city-copy
+        - paragraph [ref=e156]: Copy of new-york-city11
+        - generic [ref=e157]:
+          - generic [ref=e158]: View steps →
+          - button "Delete" [ref=e159]
+      - generic [ref=e160] [cursor=pointer]:
+        - paragraph [ref=e161]: mitchell-test-copy
+        - paragraph [ref=e162]: testing
+        - generic [ref=e163]:
+          - generic [ref=e164]: View steps →
+          - button "Delete" [ref=e165]
+      - generic [ref=e166] [cursor=pointer]:
+        - paragraph [ref=e167]: co-lum-bia-copy-2
+        - paragraph [ref=e168]: Columbia Part 1 (Associations Only)
+        - generic [ref=e169]:
+          - generic [ref=e170]: View steps →
+          - button "Delete" [ref=e171]
+      - generic [ref=e172] [cursor=pointer]:
+        - paragraph [ref=e173]: matcha-goddess
+        - paragraph [ref=e174]
+        - generic [ref=e175]:
+          - generic [ref=e176]: View steps →
+          - button "Delete" [ref=e177]
+      - generic [ref=e178] [cursor=pointer]:
+        - paragraph [ref=e179]: Flavor-copy
+        - paragraph [ref=e180]: jokes about baldurs gate 3 the best game every
+        - generic [ref=e181]:
+          - generic [ref=e182]: View steps →
+          - button "Delete" [ref=e183]
+      - generic [ref=e184] [cursor=pointer]:
+        - paragraph [ref=e185]: baldursgate3-copy-75283
+        - paragraph [ref=e186]: jokes about baldurs gate 3 the best game every
+        - generic [ref=e187]:
+          - generic [ref=e188]: View steps →
+          - button "Delete" [ref=e189]
+      - generic [ref=e190] [cursor=pointer]:
+        - paragraph [ref=e191]: co-lum-bia-2
+        - paragraph [ref=e192]: Columbia Part 1 (Associations Only)
+        - generic [ref=e193]:
+          - generic [ref=e194]: View steps →
+          - button "Delete" [ref=e195]
+      - generic [ref=e196] [cursor=pointer]:
+        - paragraph [ref=e197]: woah
+        - paragraph [ref=e198]: do not use
+        - generic [ref=e199]:
+          - generic [ref=e200]: View steps →
+          - button "Delete" [ref=e201]
+      - generic [ref=e202] [cursor=pointer]:
+        - paragraph [ref=e203]: dark-nihilist-copy
+        - paragraph [ref=e204]: Dark, existential humor
+        - generic [ref=e205]:
+          - generic [ref=e206]: View steps →
+          - button "Delete" [ref=e207]
+      - generic [ref=e208] [cursor=pointer]:
+        - paragraph [ref=e209]: do-not-use-ter-re-lyn-gen-copy-3560
+        - paragraph [ref=e210]: do not use
+        - generic [ref=e211]:
+          - generic [ref=e212]: View steps →
+          - button "Delete" [ref=e213]
+      - generic [ref=e214] [cursor=pointer]:
+        - paragraph [ref=e215]: academically-burnt-out-overthinker-copy
+        - paragraph [ref=e216]: A dry, introspective humor style that frames ordinary situations through the lens of academic burnou
+        - generic [ref=e217]:
+          - generic [ref=e218]: View steps →
+          - button "Delete" [ref=e219]
+      - generic [ref=e220] [cursor=pointer]:
+        - paragraph [ref=e221]: some-flavor-test-copy
+        - paragraph [ref=e222]: hello
+        - generic [ref=e223]:
+          - generic [ref=e224]: View steps →
+          - button "Delete" [ref=e225]
+      - generic [ref=e226] [cursor=pointer]:
+        - paragraph [ref=e227]: baldursgate3-copy-71232
+        - paragraph [ref=e228]: jokes about baldurs gate 3 the best game every
+        - generic [ref=e229]:
+          - generic [ref=e230]: View steps →
+          - button "Delete" [ref=e231]
+      - generic [ref=e232] [cursor=pointer]:
+        - paragraph [ref=e233]: some-flavor-test
+        - paragraph [ref=e234]: hello
+        - generic [ref=e235]:
+          - generic [ref=e236]: View steps →
+          - button "Delete" [ref=e237]
+      - generic [ref=e238] [cursor=pointer]:
+        - paragraph [ref=e239]: covid-copy-52965
+        - paragraph [ref=e240]: 2020 pandemic quarantine humor
+        - generic [ref=e241]:
+          - generic [ref=e242]: View steps →
+          - button "Delete" [ref=e243]
+      - generic [ref=e244] [cursor=pointer]:
+        - paragraph [ref=e245]: covid
+        - paragraph [ref=e246]: 2020 pandemic quarantine humor
+        - generic [ref=e247]:
+          - generic [ref=e248]: View steps →
+          - button "Delete" [ref=e249]
+      - generic [ref=e250] [cursor=pointer]:
+        - paragraph [ref=e251]: columbia 3-copy
+        - paragraph [ref=e252]: Columbia Part 1 (Associations Only)
+        - generic [ref=e253]:
+          - generic [ref=e254]: View steps →
+          - button "Delete" [ref=e255]
+      - generic [ref=e256] [cursor=pointer]:
+        - paragraph [ref=e257]: columbia 3
+        - paragraph [ref=e258]: Columbia Part 1 (Associations Only)
+        - generic [ref=e259]:
+          - generic [ref=e260]: View steps →
+          - button "Delete" [ref=e261]
+      - generic [ref=e262] [cursor=pointer]:
+        - paragraph [ref=e263]: columbia-2
+        - paragraph [ref=e264]: Columbia Part 1 (Associations Only)
+        - generic [ref=e265]:
+          - generic [ref=e266]: View steps →
+          - button "Delete" [ref=e267]
+      - generic [ref=e268] [cursor=pointer]:
+        - paragraph [ref=e269]: i-am-testing-copy-copy-copy
+        - paragraph [ref=e270]: "[Copy] A dry, introspective humor style that frames ordinary situations through the lens of academic"
+        - generic [ref=e271]:
+          - generic [ref=e272]: View steps →
+          - button "Delete" [ref=e273]
+      - generic [ref=e274] [cursor=pointer]:
+        - paragraph [ref=e275]: i-am-testing-copy-copy
+        - paragraph [ref=e276]: "[Copy] A dry, introspective humor style that frames ordinary situations through the lens of academic"
+        - generic [ref=e277]:
+          - generic [ref=e278]: View steps →
+          - button "Delete" [ref=e279]
+      - generic [ref=e280] [cursor=pointer]:
+        - paragraph [ref=e281]: test01
+        - paragraph [ref=e282]: test
+        - generic [ref=e283]:
+          - generic [ref=e284]: View steps →
+          - button "Delete" [ref=e285]
+      - generic [ref=e286] [cursor=pointer]:
+        - paragraph [ref=e287]: i-am-testing copy
+        - paragraph [ref=e288]: "[Copy] A dry, introspective humor style that frames ordinary situations through the lens of academic"
+        - generic [ref=e289]:
+          - generic [ref=e290]: View steps →
+          - button "Delete" [ref=e291]
+      - generic [ref=e292] [cursor=pointer]:
+        - paragraph [ref=e293]: i-am-testing
+        - paragraph [ref=e294]: "[Copy] A dry, introspective humor style that frames ordinary situations through the lens of academic"
+        - generic [ref=e295]:
+          - generic [ref=e296]: View steps →
+          - button "Delete" [ref=e297]
+      - generic [ref=e298] [cursor=pointer]:
+        - paragraph [ref=e299]: gervais-board-certified-overreaction-copy
+        - paragraph [ref=e300]: Captions playfully roast images by exaggerating confidence, delusion, awkwardness, and unnecessary m
+        - generic [ref=e301]:
+          - generic [ref=e302]: View steps →
+          - button "Delete" [ref=e303]
+      - generic [ref=e304] [cursor=pointer]:
+        - paragraph [ref=e305]: another-copy
+        - paragraph [ref=e306]: "[Copy] A dry, introspective humor style that frames ordinary situations through the lens of academic"
+        - generic [ref=e307]:
+          - generic [ref=e308]: View steps →
+          - button "Delete" [ref=e309]
+      - generic [ref=e310] [cursor=pointer]:
+        - paragraph [ref=e311]: copy-of-academically-burnt-out-overthinker-2
+        - paragraph [ref=e312]: "[Copy] A dry, introspective humor style that frames ordinary situations through the lens of academic"
+        - generic [ref=e313]:
+          - generic [ref=e314]: View steps →
+          - button "Delete" [ref=e315]
+      - generic [ref=e316] [cursor=pointer]:
+        - paragraph [ref=e317]: copy-of-academically-burnt-out-overthinker
+        - paragraph [ref=e318]: "[Copy] A dry, introspective humor style that frames ordinary situations through the lens of academic"
+        - generic [ref=e319]:
+          - generic [ref=e320]: View steps →
+          - button "Delete" [ref=e321]
+      - generic [ref=e322] [cursor=pointer]:
+        - paragraph [ref=e323]: copy-of-abis-humor-flavor-6
+        - paragraph [ref=e324]: "[Copy] Humor for MEEEE"
+        - generic [ref=e325]:
+          - generic [ref=e326]: View steps →
+          - button "Delete" [ref=e327]
+      - generic [ref=e328] [cursor=pointer]:
+        - paragraph [ref=e329]: copy-of-academically-burnt-out-overthinker-copy-copy
+        - paragraph [ref=e330]
+        - generic [ref=e331]:
+          - generic [ref=e332]: View steps →
+          - button "Delete" [ref=e333]
+      - generic [ref=e334] [cursor=pointer]:
+        - paragraph [ref=e335]: copy-of-abis-humor-flavor-5
+        - paragraph [ref=e336]
+        - generic [ref=e337]:
+          - generic [ref=e338]: View steps →
+          - button "Delete" [ref=e339]
+      - generic [ref=e340] [cursor=pointer]:
+        - paragraph [ref=e341]: copy-of-abis-humor-flavor-4
+        - paragraph [ref=e342]: "[Copy] Humor for MEEEE"
+        - generic [ref=e343]:
+          - generic [ref=e344]: View steps →
+          - button "Delete" [ref=e345]
+      - generic [ref=e346] [cursor=pointer]:
+        - paragraph [ref=e347]: copy-of-abis-humor-flavor-3
+        - paragraph [ref=e348]: "[Copy] Humor for MEEEE"
+        - generic [ref=e349]:
+          - generic [ref=e350]: View steps →
+          - button "Delete" [ref=e351]
+      - generic [ref=e352] [cursor=pointer]:
+        - paragraph [ref=e353]: poor-student-copy
+        - paragraph [ref=e354]: Unable to relate to these Columbia elite.
+        - generic [ref=e355]:
+          - generic [ref=e356]: View steps →
+          - button "Delete" [ref=e357]
+      - generic [ref=e358] [cursor=pointer]:
+        - paragraph [ref=e359]: pov-me-copy Copy
+        - paragraph [ref=e360]: Humor flavor dedicated to creating POV me style memes
+        - generic [ref=e361]:
+          - generic [ref=e362]: View steps →
+          - button "Delete" [ref=e363]
+      - generic [ref=e364] [cursor=pointer]:
+        - paragraph [ref=e365]: pov-me-copy
+        - paragraph [ref=e366]: Humor flavor dedicated to creating POV me style memes
+        - generic [ref=e367]:
+          - generic [ref=e368]: View steps →
+          - button "Delete" [ref=e369]
+      - generic [ref=e370] [cursor=pointer]:
+        - paragraph [ref=e371]: clavicular-copy
+        - paragraph [ref=e372]: Clavicular Copy
+        - generic [ref=e373]:
+          - generic [ref=e374]: View steps →
+          - button "Delete" [ref=e375]
+      - generic [ref=e376] [cursor=pointer]:
+        - paragraph [ref=e377]: robot-speak-copy
+        - paragraph [ref=e378]: —
+        - generic [ref=e379]:
+          - generic [ref=e380]: View steps →
+          - button "Delete" [ref=e381]
+      - generic [ref=e382] [cursor=pointer]:
+        - paragraph [ref=e383]: ahmed-test-copy
+        - paragraph [ref=e384]: ahmed test flavor for assignment 10
+        - generic [ref=e385]:
+          - generic [ref=e386]: View steps →
+          - button "Delete" [ref=e387]
+      - generic [ref=e388] [cursor=pointer]:
+        - paragraph [ref=e389]: AZTEST-copy
+        - paragraph [ref=e390]: Humor for MEEEE
+        - generic [ref=e391]:
+          - generic [ref=e392]: View steps →
+          - button "Delete" [ref=e393]
+      - generic [ref=e394] [cursor=pointer]:
+        - paragraph [ref=e395]: ter-re-lyn-experiment-copy
+        - paragraph [ref=e396]: WHAT IS FUNNY? experimenting with a copy of ter-re-lyn for research purposes
+        - generic [ref=e397]:
+          - generic [ref=e398]: View steps →
+          - button "Delete" [ref=e399]
+      - generic [ref=e400] [cursor=pointer]:
+        - paragraph [ref=e401]: everything-but-humans-copy
+        - paragraph [ref=e402]: yuni testing
+        - generic [ref=e403]:
+          - generic [ref=e404]: View steps →
+          - button "Delete" [ref=e405]
+      - generic [ref=e406] [cursor=pointer]:
+        - paragraph [ref=e407]: ter-re-lyn-pop-culture-copy-ver-copy
+        - paragraph [ref=e408]: copy of ter-re-lyn but with pop culture references
+        - generic [ref=e409]:
+          - generic [ref=e410]: View steps →
+          - button "Delete" [ref=e411]
+      - generic [ref=e412] [cursor=pointer]:
+        - paragraph [ref=e413]: ter-re-lyn-pop-culture-copy-ver
+        - paragraph [ref=e414]: copy of ter-re-lyn but with pop culture references
+        - generic [ref=e415]:
+          - generic [ref=e416]: View steps →
+          - button "Delete" [ref=e417]
+      - generic [ref=e418] [cursor=pointer]:
+        - paragraph [ref=e419]: ter-re-lyn-sprihaa-copy-2
+        - paragraph [ref=e420]: copy of ter-re-lyn for sprihaa experimentation
+        - generic [ref=e421]:
+          - generic [ref=e422]: View steps →
+          - button "Delete" [ref=e423]
+      - generic [ref=e424] [cursor=pointer]:
+        - paragraph [ref=e425]: ter-re-lyn-sprihaa-copy
+        - paragraph [ref=e426]: copy of ter-re-lyn for sprihaa experimentation
+        - generic [ref=e427]:
+          - generic [ref=e428]: View steps →
+          - button "Delete" [ref=e429]
+      - generic [ref=e430] [cursor=pointer]:
+        - paragraph [ref=e431]: ter-re-lyn-sprihaa-copy-5367
+        - paragraph [ref=e432]: copy of ter-re-lyn for sprihaa experimentation
+        - generic [ref=e433]:
+          - generic [ref=e434]: View steps →
+          - button "Delete" [ref=e435]
+      - generic [ref=e436] [cursor=pointer]:
+        - paragraph [ref=e437]: sarcastic-chain-of-columbia
+        - paragraph [ref=e438]: This flavor is for tired columbia students who are failing their midterms.
+        - generic [ref=e439]:
+          - generic [ref=e440]: View steps →
+          - button "Delete" [ref=e441]
+      - generic [ref=e442] [cursor=pointer]:
+        - paragraph [ref=e443]: new one-copy--copy-copy
+        - paragraph [ref=e444]: Copy of Columbia Part 1 (Associations Only)
+        - generic [ref=e445]:
+          - generic [ref=e446]: View steps →
+          - button "Delete" [ref=e447]
+      - generic [ref=e448] [cursor=pointer]:
+        - paragraph [ref=e449]: new one-copy--copy
+        - paragraph [ref=e450]: Copy of Columbia Part 1 (Associations Only)
+        - generic [ref=e451]:
+          - generic [ref=e452]: View steps →
+          - button "Delete" [ref=e453]
+      - generic [ref=e454] [cursor=pointer]:
+        - paragraph [ref=e455]: new one-copy
+        - paragraph [ref=e456]: Copy of Columbia Part 1 (Associations Only)
+        - generic [ref=e457]:
+          - generic [ref=e458]: View steps →
+          - button "Delete" [ref=e459]
+      - generic [ref=e460] [cursor=pointer]:
+        - paragraph [ref=e461]: Akshara's Duplicate Humor Flavor-copy
+        - paragraph [ref=e462]: Copy of Akshara's humor flavor!!!
+        - generic [ref=e463]:
+          - generic [ref=e464]: View steps →
+          - button "Delete" [ref=e465]
+      - generic [ref=e466] [cursor=pointer]:
+        - paragraph [ref=e467]: Akshara's Duplicate Humor Flavor
+        - paragraph [ref=e468]: Akshara's humor flavor!!!
+        - generic [ref=e469]:
+          - generic [ref=e470]: View steps →
+          - button "Delete" [ref=e471]
+      - generic [ref=e472] [cursor=pointer]:
+        - paragraph [ref=e473]: new one
+        - paragraph [ref=e474]: Columbia Part 1 (Associations Only)
+        - generic [ref=e475]:
+          - generic [ref=e476]: View steps →
+          - button "Delete" [ref=e477]
+      - generic [ref=e478] [cursor=pointer]:
+        - paragraph [ref=e479]: samsamson copy
+        - paragraph [ref=e480]: Columbia Part 1 (Associations Only)
+        - generic [ref=e481]:
+          - generic [ref=e482]: View steps →
+          - button "Delete" [ref=e483]
+      - generic [ref=e484] [cursor=pointer]:
+        - paragraph [ref=e485]: samsamson
+        - paragraph [ref=e486]: Columbia Part 1 (Associations Only)
+        - generic [ref=e487]:
+          - generic [ref=e488]: View steps →
+          - button "Delete" [ref=e489]
+      - generic [ref=e490] [cursor=pointer]:
+        - paragraph [ref=e491]: co-lum-bia-copy-9593
+        - paragraph [ref=e492]: Columbia Part 1 (Associations Only)
+        - generic [ref=e493]:
+          - generic [ref=e494]: View steps →
+          - button "Delete" [ref=e495]
+      - generic [ref=e496] [cursor=pointer]:
+        - paragraph [ref=e497]: co-lum-bia-copy-0694
+        - paragraph [ref=e498]: Columbia Part 1 (Associations Only)
+        - generic [ref=e499]:
+          - generic [ref=e500]: View steps →
+          - button "Delete" [ref=e501]
+      - generic [ref=e502] [cursor=pointer]:
+        - paragraph [ref=e503]: shubham-manuwas
+        - paragraph [ref=e504]: "Classic 3-step pipeline: celebrity recognition, image description, then dark Gen Z humor captions."
+        - generic [ref=e505]:
+          - generic [ref=e506]: View steps →
+          - button "Delete" [ref=e507]
+      - generic [ref=e508] [cursor=pointer]:
+        - paragraph [ref=e509]: dwight-shrute-copy
+        - paragraph [ref=e510]: "FACT: The funniest humor flavor."
+        - generic [ref=e511]:
+          - generic [ref=e512]: View steps →
+          - button "Delete" [ref=e513]
+      - generic [ref=e514] [cursor=pointer]:
+        - paragraph [ref=e515]: robot-speak
+        - paragraph [ref=e516]: —
+        - generic [ref=e517]:
+          - generic [ref=e518]: View steps →
+          - button "Delete" [ref=e519]
+      - generic [ref=e520] [cursor=pointer]:
+        - paragraph [ref=e521]: computer-science-student-copy
+        - paragraph [ref=e522]: Some funny jokes about the study and life of computer science students.
+        - generic [ref=e523]:
+          - generic [ref=e524]: View steps →
+          - button "Delete" [ref=e525]
+      - generic [ref=e526] [cursor=pointer]:
+        - paragraph [ref=e527]: loooop
+        - paragraph [ref=e528]
+        - generic [ref=e529]:
+          - generic [ref=e530]: View steps →
+          - button "Delete" [ref=e531]
+      - generic [ref=e532] [cursor=pointer]:
+        - paragraph [ref=e533]: co-lum-bia-copy-test-copy
+        - paragraph [ref=e534]: Columbia Part 1 (Associations Only)
+        - generic [ref=e535]:
+          - generic [ref=e536]: View steps →
+          - button "Delete" [ref=e537]
+      - generic [ref=e538] [cursor=pointer]:
+        - paragraph [ref=e539]: co-lum-bia-copy-test
+        - paragraph [ref=e540]: Columbia Part 1 (Associations Only)
+        - generic [ref=e541]:
+          - generic [ref=e542]: View steps →
+          - button "Delete" [ref=e543]
+      - generic [ref=e544] [cursor=pointer]:
+        - paragraph [ref=e545]: co-lum-bia-test-abc123-copy
+        - paragraph [ref=e546]: Columbia Part 1 (Associations Only) Copy
+        - generic [ref=e547]:
+          - generic [ref=e548]: View steps →
+          - button "Delete" [ref=e549]
+      - generic [ref=e550] [cursor=pointer]:
+        - paragraph [ref=e551]: co-lum-bia-test-abc123
+        - paragraph [ref=e552]: Columbia Part 1 (Associations Only)
+        - generic [ref=e553]:
+          - generic [ref=e554]: View steps →
+          - button "Delete" [ref=e555]
+      - generic [ref=e556] [cursor=pointer]:
+        - paragraph [ref=e557]: copy-of-abis-humor-flavor-2
+        - paragraph [ref=e558]: "[Copy] Humor for MEEEE"
+        - generic [ref=e559]:
+          - generic [ref=e560]: View steps →
+          - button "Delete" [ref=e561]
+      - generic [ref=e562] [cursor=pointer]:
+        - paragraph [ref=e563]: copy-of-abis-humor-flavor
+        - paragraph [ref=e564]: "[Copy] Humor for MEEEE"
+        - generic [ref=e565]:
+          - generic [ref=e566]: View steps →
+          - button "Delete" [ref=e567]
+      - generic [ref=e568] [cursor=pointer]:
+        - paragraph [ref=e569]: sarcastic (Copy)
+        - paragraph [ref=e570]: Uses irony, exaggeration, and sharp tone to mock or poke fun. Often sounds like praise but actually
+        - generic [ref=e571]:
+          - generic [ref=e572]: View steps →
+          - button "Delete" [ref=e573]
+      - generic [ref=e574] [cursor=pointer]:
+        - paragraph [ref=e575]: political-rage-bait (Copy)
+        - paragraph [ref=e576]: people feel strong emotions towards politics. let's abuse this.
+        - generic [ref=e577]:
+          - generic [ref=e578]: View steps →
+          - button "Delete" [ref=e579]
+      - generic [ref=e580] [cursor=pointer]:
+        - paragraph [ref=e581]: howDoesThisWork (Copy)
+        - paragraph [ref=e582]: learning to prompt
+        - generic [ref=e583]:
+          - generic [ref=e584]: View steps →
+          - button "Delete" [ref=e585]
+      - generic [ref=e586] [cursor=pointer]:
+        - paragraph [ref=e587]: howDoesThisWork
+        - paragraph [ref=e588]: learning to prompt
+        - generic [ref=e589]:
+          - generic [ref=e590]: View steps →
+          - button "Delete" [ref=e591]
+      - generic [ref=e592] [cursor=pointer]:
+        - paragraph [ref=e593]: sarcastic
+        - paragraph [ref=e594]: Uses irony, exaggeration, and sharp tone to mock or poke fun. Often sounds like praise but actually
+        - generic [ref=e595]:
+          - generic [ref=e596]: View steps →
+          - button "Delete" [ref=e597]
+      - generic [ref=e598] [cursor=pointer]:
+        - paragraph [ref=e599]: dad-joke-bot
+        - paragraph [ref=e600]: Dad Joke bot
+        - generic [ref=e601]:
+          - generic [ref=e602]: View steps →
+          - button "Delete" [ref=e603]
+      - generic [ref=e604] [cursor=pointer]:
+        - paragraph [ref=e605]: Two steps meme (Copy 4)
+        - paragraph [ref=e606]: no name
+        - generic [ref=e607]:
+          - generic [ref=e608]: View steps →
+          - button "Delete" [ref=e609]
+      - generic [ref=e610] [cursor=pointer]:
+        - paragraph [ref=e611]: Jamaican uncle (Copy 4)
+        - paragraph [ref=e612]: smart
+        - generic [ref=e613]:
+          - generic [ref=e614]: View steps →
+          - button "Delete" [ref=e615]
+      - generic [ref=e616] [cursor=pointer]:
+        - paragraph [ref=e617]: co-lum-bia (Copy 2)
+        - paragraph [ref=e618]: Columbia Part 1 (Associations Only)
+        - generic [ref=e619]:
+          - generic [ref=e620]: View steps →
+          - button "Delete" [ref=e621]
+      - generic [ref=e622] [cursor=pointer]:
+        - paragraph [ref=e623]: flavor-weirdly-specific-but-true (Copy 2)
+        - paragraph [ref=e624]: Hyper specific scenario that is oddly niche but instantly recognizable.
+        - generic [ref=e625]:
+          - generic [ref=e626]: View steps →
+          - button "Delete" [ref=e627]
+      - generic [ref=e628] [cursor=pointer]:
+        - paragraph [ref=e629]: flavor-inside-my-head (Copy)
+        - paragraph [ref=e630]: Private thought exposed.
+        - generic [ref=e631]:
+          - generic [ref=e632]: View steps →
+          - button "Delete" [ref=e633]
+      - generic [ref=e634] [cursor=pointer]:
+        - paragraph [ref=e635]: Two steps meme (Copy 3)
+        - paragraph [ref=e636]: —
+        - generic [ref=e637]:
+          - generic [ref=e638]: View steps →
+          - button "Delete" [ref=e639]
+      - generic [ref=e640] [cursor=pointer]:
+        - paragraph [ref=e641]: flavor-huh-oh-wait-thats-good (Copy 2)
+        - paragraph [ref=e642]: Takes half a second, then it hits.
+        - generic [ref=e643]:
+          - generic [ref=e644]: View steps →
+          - button "Delete" [ref=e645]
+      - generic [ref=e646] [cursor=pointer]:
+        - paragraph [ref=e647]: flavor-huh-oh-wait-thats-good (Copy)
+        - paragraph [ref=e648]: Takes half a second, then it hits.
+        - generic [ref=e649]:
+          - generic [ref=e650]: View steps →
+          - button "Delete" [ref=e651]
+      - generic [ref=e652] [cursor=pointer]:
+        - paragraph [ref=e653]: Jamaican uncle (Copy 3)
+        - paragraph [ref=e654]: smart
+        - generic [ref=e655]:
+          - generic [ref=e656]: View steps →
+          - button "Delete" [ref=e657]
+      - generic [ref=e658] [cursor=pointer]:
+        - paragraph [ref=e659]: Jamaican uncle (Copy 2)
+        - paragraph [ref=e660]: smart
+        - generic [ref=e661]:
+          - generic [ref=e662]: View steps →
+          - button "Delete" [ref=e663]
+      - generic [ref=e664] [cursor=pointer]:
+        - paragraph [ref=e665]: Two steps meme (Copy 2)
+        - paragraph [ref=e666]: —
+        - generic [ref=e667]:
+          - generic [ref=e668]: View steps →
+          - button "Delete" [ref=e669]
+      - generic [ref=e670] [cursor=pointer]:
+        - paragraph [ref=e671]: Jamaican uncle (Copy)
+        - paragraph [ref=e672]: smart
+        - generic [ref=e673]:
+          - generic [ref=e674]: View steps →
+          - button "Delete" [ref=e675]
+      - generic [ref=e676] [cursor=pointer]:
+        - paragraph [ref=e677]: flavor-weirdly-specific-but-true (Copy)
+        - paragraph [ref=e678]: Hyper specific scenario that is oddly niche but instantly recognizable.
+        - generic [ref=e679]:
+          - generic [ref=e680]: View steps →
+          - button "Delete" [ref=e681]
+      - generic [ref=e682] [cursor=pointer]:
+        - paragraph [ref=e683]: Funny Doraemon cat (Copy)
+        - paragraph [ref=e684]: —
+        - generic [ref=e685]:
+          - generic [ref=e686]: View steps →
+          - button "Delete" [ref=e687]
+      - generic [ref=e688] [cursor=pointer]:
+        - paragraph [ref=e689]: Two steps meme (Copy)
+        - paragraph [ref=e690]: —
+        - generic [ref=e691]:
+          - generic [ref=e692]: View steps →
+          - button "Delete" [ref=e693]
+      - generic [ref=e694] [cursor=pointer]:
+        - paragraph [ref=e695]: co-lum-bia (Copy)
+        - paragraph [ref=e696]: Columbia Part 1 (Associations Only)
+        - generic [ref=e697]:
+          - generic [ref=e698]: View steps →
+          - button "Delete" [ref=e699]
+      - generic [ref=e700] [cursor=pointer]:
+        - paragraph [ref=e701]: Two steps meme
+        - paragraph [ref=e702]: —
+        - generic [ref=e703]:
+          - generic [ref=e704]: View steps →
+          - button "Delete" [ref=e705]
+      - generic [ref=e706] [cursor=pointer]:
+        - paragraph [ref=e707]: Two steps
+        - paragraph [ref=e708]: —
+        - generic [ref=e709]:
+          - generic [ref=e710]: View steps →
+          - button "Delete" [ref=e711]
+      - generic [ref=e712] [cursor=pointer]:
+        - paragraph [ref=e713]: Funny Doraemon cat
+        - paragraph [ref=e714]: —
+        - generic [ref=e715]:
+          - generic [ref=e716]: View steps →
+          - button "Delete" [ref=e717]
+      - generic [ref=e718] [cursor=pointer]:
+        - paragraph [ref=e719]: Doraemon 3
+        - paragraph [ref=e720]: —
+        - generic [ref=e721]:
+          - generic [ref=e722]: View steps →
+          - button "Delete" [ref=e723]
+      - generic [ref=e724] [cursor=pointer]:
+        - paragraph [ref=e725]: Jamaican uncle
+        - paragraph [ref=e726]: smart
+        - generic [ref=e727]:
+          - generic [ref=e728]: View steps →
+          - button "Delete" [ref=e729]
+      - generic [ref=e730] [cursor=pointer]:
+        - paragraph [ref=e731]: flavor-overreacting-a-bit
+        - paragraph [ref=e732]: Massive reaction to a tiny problem.
+        - generic [ref=e733]:
+          - generic [ref=e734]: View steps →
+          - button "Delete" [ref=e735]
+      - generic [ref=e736] [cursor=pointer]:
+        - paragraph [ref=e737]: flavor-weirdly-specific-but-true
+        - paragraph [ref=e738]: Hyper specific scenario that is oddly niche but instantly recognizable.
+        - generic [ref=e739]:
+          - generic [ref=e740]: View steps →
+          - button "Delete" [ref=e741]
+      - generic [ref=e742] [cursor=pointer]:
+        - paragraph [ref=e743]: flavor-me-when-how-it-feels
+        - paragraph [ref=e744]: "Classic meme grammar: \"Me\", \"When\", \"How it feels\"."
+        - generic [ref=e745]:
+          - generic [ref=e746]: View steps →
+          - button "Delete" [ref=e747]
+      - generic [ref=e748] [cursor=pointer]:
+        - paragraph [ref=e749]: flavor-inside-my-head
+        - paragraph [ref=e750]: Private thought exposed.
+        - generic [ref=e751]:
+          - generic [ref=e752]: View steps →
+          - button "Delete" [ref=e753]
+      - generic [ref=e754] [cursor=pointer]:
+        - paragraph [ref=e755]: flavor-huh-oh-wait-thats-good
+        - paragraph [ref=e756]: Takes half a second, then it hits.
+        - generic [ref=e757]:
+          - generic [ref=e758]: View steps →
+          - button "Delete" [ref=e759]
+      - generic [ref=e760] [cursor=pointer]:
+        - paragraph [ref=e761]: flavor-emotionally-correct
+        - paragraph [ref=e762]: Same feeling, different situation.
+        - generic [ref=e763]:
+          - generic [ref=e764]: View steps →
+          - button "Delete" [ref=e765]
+      - generic [ref=e766] [cursor=pointer]:
+        - paragraph [ref=e767]: flavor-simple-match
+        - paragraph [ref=e768]: The joke is basically just saying what the image clearly feels like.
+        - generic [ref=e769]:
+          - generic [ref=e770]: View steps →
+          - button "Delete" [ref=e771]
+      - generic [ref=e772] [cursor=pointer]:
+        - paragraph [ref=e773]: procrastinating
+        - paragraph [ref=e774]: humor about procrastinator imagining saving the world
+        - generic [ref=e775]:
+          - generic [ref=e776]: View steps →
+          - button "Delete" [ref=e777]
+      - generic [ref=e778] [cursor=pointer]:
+        - paragraph [ref=e779]: Second-Chance
+        - paragraph [ref=e780]: Another test of copy
+        - generic [ref=e781]:
+          - generic [ref=e782]: View steps →
+          - button "Delete" [ref=e783]
+      - generic [ref=e784] [cursor=pointer]:
+        - paragraph [ref=e785]: co-lum-bia-copy-1
+        - paragraph [ref=e786]: Columbia Part 1 (Associations Only) (Copy)
+        - generic [ref=e787]:
+          - generic [ref=e788]: View steps →
+          - button "Delete" [ref=e789]
+      - generic [ref=e790] [cursor=pointer]:
+        - paragraph [ref=e791]: test-duplicate
+        - paragraph [ref=e792]: do not use
+        - generic [ref=e793]:
+          - generic [ref=e794]: View steps →
+          - button "Delete" [ref=e795]
+      - generic [ref=e796] [cursor=pointer]:
+        - paragraph [ref=e797]: test-hhh
+        - paragraph [ref=e798]: Columbia Part 1 (Associations Only)
+        - generic [ref=e799]:
+          - generic [ref=e800]: View steps →
+          - button "Delete" [ref=e801]
+      - generic [ref=e802] [cursor=pointer]:
+        - paragraph [ref=e803]: yuxin_test-copy
+        - paragraph [ref=e804]: test on having a context
+        - generic [ref=e805]:
+          - generic [ref=e806]: View steps →
+          - button "Delete" [ref=e807]
+      - generic [ref=e808] [cursor=pointer]:
+        - paragraph [ref=e809]: sad gen-z-copy
+        - paragraph [ref=e810]: Captions from the perspective of a chronically sad Gen Z student
+        - generic [ref=e811]:
+          - generic [ref=e812]: View steps →
+          - button "Delete" [ref=e813]
+      - generic [ref=e814] [cursor=pointer]:
+        - paragraph [ref=e815]: yuxin_test
+        - paragraph [ref=e816]: yuxxxin testing on having specific context
+        - generic [ref=e817]:
+          - generic [ref=e818]: View steps →
+          - button "Delete" [ref=e819]
+      - generic [ref=e820] [cursor=pointer]:
+        - paragraph [ref=e821]: AZTEST-1
+        - paragraph [ref=e822]: Humor for MEEEE
+        - generic [ref=e823]:
+          - generic [ref=e824]: View steps →
+          - button "Delete" [ref=e825]
+      - generic [ref=e826] [cursor=pointer]:
+        - paragraph [ref=e827]: AZTEST
+        - paragraph [ref=e828]: Humor for MEEEE
+        - generic [ref=e829]:
+          - generic [ref=e830]: View steps →
+          - button "Delete" [ref=e831]
+      - generic [ref=e832] [cursor=pointer]:
+        - paragraph [ref=e833]: food baby
+        - paragraph [ref=e834]: food is good
+        - generic [ref=e835]:
+          - generic [ref=e836]: View steps →
+          - button "Delete" [ref=e837]
+      - generic [ref=e838] [cursor=pointer]:
+        - paragraph [ref=e839]: sad gen-z
+        - paragraph [ref=e840]: Captions from the perspective of a chronically sad Gen Z student
+        - generic [ref=e841]:
+          - generic [ref=e842]: View steps →
+          - button "Delete" [ref=e843]
+      - generic [ref=e844] [cursor=pointer]:
+        - paragraph [ref=e845]: sad genz
+        - paragraph [ref=e846]: Captions from the perspective of a chronically sad Gen Z student
+        - generic [ref=e847]:
+          - generic [ref=e848]: View steps →
+          - button "Delete" [ref=e849]
+      - generic [ref=e850] [cursor=pointer]:
+        - paragraph [ref=e851]: Chorok-test
+        - paragraph [ref=e852]: —
+        - generic [ref=e853]:
+          - generic [ref=e854]: View steps →
+          - button "Delete" [ref=e855]
+      - generic [ref=e856] [cursor=pointer]:
+        - paragraph [ref=e857]: corporate
+        - paragraph [ref=e858]: corporate email style
+        - generic [ref=e859]:
+          - generic [ref=e860]: View steps →
+          - button "Delete" [ref=e861]
+      - generic [ref=e862] [cursor=pointer]:
+        - paragraph [ref=e863]: cs-internships
+        - paragraph [ref=e864]: how cooked/hard looking for internships is
+        - generic [ref=e865]:
+          - generic [ref=e866]: View steps →
+          - button "Delete" [ref=e867]
+      - generic [ref=e868] [cursor=pointer]:
+        - paragraph [ref=e869]: ice-cream-flavor
+        - paragraph [ref=e870]: Reimagines any image as an ice cream flavor — inventing a creative flavor name, describing its taste
+        - generic [ref=e871]:
+          - generic [ref=e872]: View steps →
+          - button "Delete" [ref=e873]
+      - generic [ref=e874] [cursor=pointer]:
+        - paragraph [ref=e875]: sofia-coppola-copy-2317
+        - paragraph [ref=e876]: Melancholic, aesthetically beautiful, quietly devastating humor
+        - generic [ref=e877]:
+          - generic [ref=e878]: View steps →
+          - button "Delete" [ref=e879]
+      - generic [ref=e880] [cursor=pointer]:
+        - paragraph [ref=e881]: week10-eldad-situational-deadpan
+        - paragraph [ref=e882]: "Deadpan campus survival humor: concise, image-grounded captions about student life stress, minor cha"
+        - generic [ref=e883]:
+          - generic [ref=e884]: View steps →
+          - button "Delete" [ref=e885]
+      - generic [ref=e886] [cursor=pointer]:
+        - paragraph [ref=e887]: sofia-coppola
+        - paragraph [ref=e888]: Melancholic, aesthetically beautiful, quietly devastating humor
+        - generic [ref=e889]:
+          - generic [ref=e890]: View steps →
+          - button "Delete" [ref=e891]
+      - generic [ref=e892] [cursor=pointer]:
+        - paragraph [ref=e893]: instagram-reels-brainrot-humor
+        - paragraph [ref=e894]: generates captions similar to instagram reel humor
+        - generic [ref=e895]:
+          - generic [ref=e896]: View steps →
+          - button "Delete" [ref=e897]
+      - generic [ref=e898] [cursor=pointer]:
+        - paragraph [ref=e899]: confidently-wrong
+        - paragraph [ref=e900]: A humor style where the speaker sounds extremely confident but is completely wrong about what is hap
+        - generic [ref=e901]:
+          - generic [ref=e902]: View steps →
+          - button "Delete" [ref=e903]
+      - generic [ref=e904] [cursor=pointer]:
+        - paragraph [ref=e905]: seinfeld
+        - paragraph [ref=e906]: seinfeld
+        - generic [ref=e907]:
+          - generic [ref=e908]: View steps →
+          - button "Delete" [ref=e909]
+      - generic [ref=e910] [cursor=pointer]:
+        - paragraph [ref=e911]: dramatic-theater-kid
+        - paragraph [ref=e912]: Generates captions as an overly dramatic theater kid who treats every moment like a Broadway scene
+        - generic [ref=e913]:
+          - generic [ref=e914]: View steps →
+          - button "Delete" [ref=e915]
+      - generic [ref=e916] [cursor=pointer]:
+        - paragraph [ref=e917]: computer-science-student
+        - paragraph [ref=e918]: Some funny jokes about the study and life of computer science students.
+        - generic [ref=e919]:
+          - generic [ref=e920]: View steps →
+          - button "Delete" [ref=e921]
+      - generic [ref=e922] [cursor=pointer]:
+        - paragraph [ref=e923]: agm2225
+        - paragraph [ref=e924]
+        - generic [ref=e925]:
+          - generic [ref=e926]: View steps →
+          - button "Delete" [ref=e927]
+      - generic [ref=e928] [cursor=pointer]:
+        - paragraph [ref=e929]: game-r-jokes
+        - paragraph [ref=e930]: Jokes for the gamer
+        - generic [ref=e931]:
+          - generic [ref=e932]: View steps →
+          - button "Delete" [ref=e933]
+      - generic [ref=e934] [cursor=pointer]:
+        - paragraph [ref=e935]: Drama Queen
+        - paragraph [ref=e936]: Being a melancholy drama queen just cause
+        - generic [ref=e937]:
+          - generic [ref=e938]: View steps →
+          - button "Delete" [ref=e939]
+      - generic [ref=e940] [cursor=pointer]:
+        - paragraph [ref=e941]: nyc-humor
+        - paragraph [ref=e942]: New York City related humor...
+        - generic [ref=e943]:
+          - generic [ref=e944]: View steps →
+          - button "Delete" [ref=e945]
+      - generic [ref=e946] [cursor=pointer]:
+        - paragraph [ref=e947]: millennial-vs-genz
+        - paragraph [ref=e948]: compares the humor of millennials to gen z humor
+        - generic [ref=e949]:
+          - generic [ref=e950]: View steps →
+          - button "Delete" [ref=e951]
+      - generic [ref=e952] [cursor=pointer]:
+        - paragraph [ref=e953]: dorm-humor
+        - paragraph [ref=e954]: Makes jokes related to dorms
+        - generic [ref=e955]:
+          - generic [ref=e956]: View steps →
+          - button "Delete" [ref=e957]
+      - generic [ref=e958] [cursor=pointer]:
+        - paragraph [ref=e959]: Dark Humor with a tint of irony
+        - paragraph [ref=e960]: Slightly mean humor with a bit of irony
+        - generic [ref=e961]:
+          - generic [ref=e962]: View steps →
+          - button "Delete" [ref=e963]
+      - generic [ref=e964] [cursor=pointer]:
+        - paragraph [ref=e965]: vjj-cooking
+        - paragraph [ref=e966]: Humor Flavor Recipe by VJJ
+        - generic [ref=e967]:
+          - generic [ref=e968]: View steps →
+          - button "Delete" [ref=e969]
+      - generic [ref=e970] [cursor=pointer]:
+        - paragraph [ref=e971]: jus-tin-experiment
+        - paragraph [ref=e972]: Mixing Terrelyn's experiment with Gen-Z dark humor and Columbia humor flavors
+        - generic [ref=e973]:
+          - generic [ref=e974]: View steps →
+          - button "Delete" [ref=e975]
+      - generic [ref=e976] [cursor=pointer]:
+        - paragraph [ref=e977]: passport
+        - paragraph [ref=e978]: Jokes about passports
+        - generic [ref=e979]:
+          - generic [ref=e980]: View steps →
+          - button "Delete" [ref=e981]
+      - generic [ref=e982] [cursor=pointer]:
+        - paragraph [ref=e983]: dfsf
+        - paragraph [ref=e984]: sdfsdf
+        - generic [ref=e985]:
+          - generic [ref=e986]: View steps →
+          - button "Delete" [ref=e987]
+      - generic [ref=e988] [cursor=pointer]:
+        - paragraph [ref=e989]: Overheard on Girls Campus
+        - paragraph [ref=e990]: Niche Jewish sleep away camp humor - bunk rivalries, Color War, ruach, Shabbat drama, and chadar och
+        - generic [ref=e991]:
+          - generic [ref=e992]: View steps →
+          - button "Delete" [ref=e993]
+      - generic [ref=e994] [cursor=pointer]:
+        - paragraph [ref=e995]: dry
+        - paragraph [ref=e996]: Dry, slightly absurd humor with a sarcastically wholesome tone. Captions should sound calm and under
+        - generic [ref=e997]:
+          - generic [ref=e998]: View steps →
+          - button "Delete" [ref=e999]
+      - generic [ref=e1000] [cursor=pointer]:
+        - paragraph [ref=e1001]: dry-wholesome-weird
+        - paragraph [ref=e1002]: Dry, slightly absurd humor with a sarcastically wholesome tone. Captions should sound calm and under
+        - generic [ref=e1003]:
+          - generic [ref=e1004]: View steps →
+          - button "Delete" [ref=e1005]
+      - generic [ref=e1006] [cursor=pointer]:
+        - paragraph [ref=e1007]: storytelling
+        - paragraph [ref=e1008]: describing image in a funny way like a story
+        - generic [ref=e1009]:
+          - generic [ref=e1010]: View steps →
+          - button "Delete" [ref=e1011]
+      - generic [ref=e1012] [cursor=pointer]:
+        - paragraph [ref=e1013]: chronically-online
+        - paragraph [ref=e1014]: Writes from the perspective of someone who is constantly online, uses niche internet references, and
+        - generic [ref=e1015]:
+          - generic [ref=e1016]: View steps →
+          - button "Delete" [ref=e1017]
+      - generic [ref=e1018] [cursor=pointer]:
+        - paragraph [ref=e1019]: hand-on-bush-type-energy
+        - paragraph [ref=e1020]: The humor flavor that's WAYYY too comfortable, it should be shut down tbh. Outputs the types of thin
+        - generic [ref=e1021]:
+          - generic [ref=e1022]: View steps →
+          - button "Delete" [ref=e1023]
+      - generic [ref=e1024] [cursor=pointer]:
+        - paragraph [ref=e1025]: a-digital-meme-group
+        - paragraph [ref=e1026]: Three personalities collaborating on a meme
+        - generic [ref=e1027]:
+          - generic [ref=e1028]: View steps →
+          - button "Delete" [ref=e1029]
+      - generic [ref=e1030] [cursor=pointer]:
+        - paragraph [ref=e1031]: academically-burnt-out-overthinker
+        - paragraph [ref=e1032]: A dry, introspective humor style that frames ordinary situations through the lens of academic burnou
+        - generic [ref=e1033]:
+          - generic [ref=e1034]: View steps →
+          - button "Delete" [ref=e1035]
+      - generic [ref=e1036] [cursor=pointer]:
+        - paragraph [ref=e1037]: Sleep Deprived student
+        - paragraph [ref=e1038]: A dry, short, college-student humor style that turns ordinary scenes into captions about stress, exh
+        - generic [ref=e1039]:
+          - generic [ref=e1040]: View steps →
+          - button "Delete" [ref=e1041]
+      - generic [ref=e1042] [cursor=pointer]:
+        - paragraph [ref=e1043]: Sleep-Deprived Student
+        - paragraph [ref=e1044]: A dry, short, college-student humor style that turns ordinary scenes into captions about stress, exh
+        - generic [ref=e1045]:
+          - generic [ref=e1046]: View steps →
+          - button "Delete" [ref=e1047]
+      - generic [ref=e1048] [cursor=pointer]:
+        - paragraph [ref=e1049]: kanagn-roast-comic
+        - paragraph [ref=e1050]: Unhinged standup roast comedy — dark, controversial, image-specific. Nikki Glaser meets Anthony Jese
+        - generic [ref=e1051]:
+          - generic [ref=e1052]: View steps →
+          - button "Delete" [ref=e1053]
+      - generic [ref=e1054] [cursor=pointer]:
+        - paragraph [ref=e1055]: political-rage-bait
+        - paragraph [ref=e1056]: people feel strong emotions towards politics. let's abuse this.
+        - generic [ref=e1057]:
+          - generic [ref=e1058]: View steps →
+          - button "Delete" [ref=e1059]
+      - generic [ref=e1060] [cursor=pointer]:
+        - paragraph [ref=e1061]: columbia-sidechat-roast-henry
+        - paragraph [ref=e1062]: Columbia / Sidechat roast pipeline with recognition, description, angle generation, critique, and fi
+        - generic [ref=e1063]:
+          - generic [ref=e1064]: View steps →
+          - button "Delete" [ref=e1065]
+      - generic [ref=e1066] [cursor=pointer]:
+        - paragraph [ref=e1067]: columbia-sidechat-roast
+        - paragraph [ref=e1068]: Columbia / Sidechat roast pipeline with recognition, description, angle generation, critique, and fi
+        - generic [ref=e1069]:
+          - generic [ref=e1070]: View steps →
+          - button "Delete" [ref=e1071]
+      - generic [ref=e1072] [cursor=pointer]:
+        - paragraph [ref=e1073]: wall
+        - paragraph [ref=e1074]: wall related memes
+        - generic [ref=e1075]:
+          - generic [ref=e1076]: View steps →
+          - button "Delete" [ref=e1077]
+      - generic [ref=e1078] [cursor=pointer]:
+        - paragraph [ref=e1079]: henry-test
+        - paragraph [ref=e1080]
+        - generic [ref=e1081]:
+          - generic [ref=e1082]: View steps →
+          - button "Delete" [ref=e1083]
+      - generic [ref=e1084] [cursor=pointer]:
+        - paragraph [ref=e1085]: deadpan-philosopher
+        - paragraph [ref=e1086]: Treats every image as profound evidence for existential claims. Describes the scene like a jaded aca
+        - generic [ref=e1087]:
+          - generic [ref=e1088]: View steps →
+          - button "Delete" [ref=e1089]
+      - generic [ref=e1090] [cursor=pointer]:
+        - paragraph [ref=e1091]: tech-bro-founder-mode
+        - paragraph [ref=e1092]: Captions that read any image through founder-core, VC-coded, startup-obsessed tech-bro energy.
+        - generic [ref=e1093]:
+          - generic [ref=e1094]: View steps →
+          - button "Delete" [ref=e1095]
+      - generic [ref=e1096] [cursor=pointer]:
+        - paragraph [ref=e1097]: baldursgate3
+        - paragraph [ref=e1098]: jokes about baldurs gate 3 the best game every
+        - generic [ref=e1099]:
+          - generic [ref=e1100]: View steps →
+          - button "Delete" [ref=e1101]
+      - generic [ref=e1102] [cursor=pointer]:
+        - paragraph [ref=e1103]: corporate-burnout
+        - paragraph [ref=e1104]: Dry, sarcastic captions that sound like a tired employee narrating office life.
+        - generic [ref=e1105]:
+          - generic [ref=e1106]: View steps →
+          - button "Delete" [ref=e1107]
+      - generic [ref=e1108] [cursor=pointer]:
+        - paragraph [ref=e1109]: ragebaiter
+        - paragraph [ref=e1110]: instigating
+        - generic [ref=e1111]:
+          - generic [ref=e1112]: View steps →
+          - button "Delete" [ref=e1113]
+      - generic [ref=e1114] [cursor=pointer]:
+        - paragraph [ref=e1115]: liminal-prophecy
+        - paragraph [ref=e1116]: Turns ordinary images into weird omens, symbolic observations, and short surreal captions.
+        - generic [ref=e1117]:
+          - generic [ref=e1118]: View steps →
+          - button "Delete" [ref=e1119]
+      - generic [ref=e1120] [cursor=pointer]:
+        - paragraph [ref=e1121]: sarcastic-wit
+        - paragraph [ref=e1122]: Sharp, sarcastic captions that find the irony in everyday moments
+        - generic [ref=e1123]:
+          - generic [ref=e1124]: View steps →
+          - button "Delete" [ref=e1125]
+      - generic [ref=e1126] [cursor=pointer]:
+        - paragraph [ref=e1127]: student-athlete-roaster
+        - paragraph [ref=e1128]: Roasts student athletes with affectionate but savage humor about their priorities, excuses, and athl
+        - generic [ref=e1129]:
+          - generic [ref=e1130]: View steps →
+          - button "Delete" [ref=e1131]
+      - generic [ref=e1132] [cursor=pointer]:
+        - paragraph [ref=e1133]: sad-girl-2
+        - paragraph [ref=e1134]: Copy of very funny, very self aware, probably in a toxic situationship
+        - generic [ref=e1135]:
+          - generic [ref=e1136]: View steps →
+          - button "Delete" [ref=e1137]
+      - generic [ref=e1138] [cursor=pointer]:
+        - paragraph [ref=e1139]: disney-channel-awk
+        - paragraph [ref=e1140]: giving awkward disney channel interactions
+        - generic [ref=e1141]:
+          - generic [ref=e1142]: View steps →
+          - button "Delete" [ref=e1143]
+      - generic [ref=e1144] [cursor=pointer]:
+        - paragraph [ref=e1145]: Jamaican Uncle
+        - paragraph [ref=e1146]: Like a Jamaican elder
+        - generic [ref=e1147]:
+          - generic [ref=e1148]: View steps →
+          - button "Delete" [ref=e1149]
+      - generic [ref=e1150] [cursor=pointer]:
+        - paragraph [ref=e1151]: Test-AM
+        - paragraph [ref=e1152]
+        - generic [ref=e1153]:
+          - generic [ref=e1154]: View steps →
+          - button "Delete" [ref=e1155]
+      - generic [ref=e1156] [cursor=pointer]:
+        - paragraph [ref=e1157]: a-march-madness
+        - paragraph [ref=e1158]: —
+        - generic [ref=e1159]:
+          - generic [ref=e1160]: View steps →
+          - button "Delete" [ref=e1161]
+      - generic [ref=e1162] [cursor=pointer]:
+        - paragraph [ref=e1163]: Corporate Chaos Deadpan
+        - paragraph [ref=e1164]: Ultra-dry, office-politics sarcasm with short punchlines and no emojis.
+        - generic [ref=e1165]:
+          - generic [ref=e1166]: View steps →
+          - button "Delete" [ref=e1167]
+      - generic [ref=e1168] [cursor=pointer]:
+        - paragraph [ref=e1169]: Unhinged Linkedin
+        - paragraph [ref=e1170]: Corporate motivational speak applied to any random detail in an image. Like a LinkedIn influencer ca
+        - generic [ref=e1171]:
+          - generic [ref=e1172]: View steps →
+          - button "Delete" [ref=e1173]
+      - generic [ref=e1174] [cursor=pointer]:
+        - paragraph [ref=e1175]: t-t-t
+        - paragraph [ref=e1176]: —
+        - generic [ref=e1177]:
+          - generic [ref=e1178]: View steps →
+          - button "Delete" [ref=e1179]
+      - generic [ref=e1180] [cursor=pointer]:
+        - paragraph [ref=e1181]: Friends-Sitcom
+        - paragraph [ref=e1182]: Jokes that simulate "Friends" humor
+        - generic [ref=e1183]:
+          - generic [ref=e1184]: View steps →
+          - button "Delete" [ref=e1185]
+      - generic [ref=e1186] [cursor=pointer]:
+        - paragraph [ref=e1187]: columbia-exhausted
+        - paragraph [ref=e1188]: Captions written by a Columbia student who is running on 3 hours of sleep, has 4 deadlines, and some
+        - generic [ref=e1189]:
+          - generic [ref=e1190]: View steps →
+          - button "Delete" [ref=e1191]
+      - generic [ref=e1192] [cursor=pointer]:
+        - paragraph [ref=e1193]: new-flavor-
+        - paragraph [ref=e1194]: TDB
+        - generic [ref=e1195]:
+          - generic [ref=e1196]: View steps →
+          - button "Delete" [ref=e1197]
+      - generic [ref=e1198] [cursor=pointer]:
+        - paragraph [ref=e1199]: dad-jokes?
+        - paragraph [ref=e1200]: puny and punny sometimes little funny
+        - generic [ref=e1201]:
+          - generic [ref=e1202]: View steps →
+          - button "Delete" [ref=e1203]
+      - generic [ref=e1204] [cursor=pointer]:
+        - paragraph [ref=e1205]: sad-girl
+        - paragraph [ref=e1206]: very funny, very self aware, probably in a toxic situationship
+        - generic [ref=e1207]:
+          - generic [ref=e1208]: View steps →
+          - button "Delete" [ref=e1209]
+      - generic [ref=e1210] [cursor=pointer]:
+        - paragraph [ref=e1211]: naoto-testing
+        - paragraph [ref=e1212]: —
+        - generic [ref=e1213]:
+          - generic [ref=e1214]: View steps →
+          - button "Delete" [ref=e1215]
+      - generic [ref=e1216] [cursor=pointer]:
+        - paragraph [ref=e1217]: unhinged-life-coach
+        - paragraph [ref=e1218]: Captions written as if a wildly overconfident, slightly unqualified life coach is giving unsolicited
+        - generic [ref=e1219]:
+          - generic [ref=e1220]: View steps →
+          - button "Delete" [ref=e1221]
+      - generic [ref=e1222] [cursor=pointer]:
+        - paragraph [ref=e1223]: gervais-board-certified-overreaction
+        - paragraph [ref=e1224]: Captions playfully roast images by exaggerating confidence, delusion, awkwardness, and unnecessary m
+        - generic [ref=e1225]:
+          - generic [ref=e1226]: View steps →
+          - button "Delete" [ref=e1227]
+      - generic [ref=e1228] [cursor=pointer]:
+        - paragraph [ref=e1229]: K-jokes
+        - paragraph [ref=e1230]: Korean drama jokes
+        - generic [ref=e1231]:
+          - generic [ref=e1232]: View steps →
+          - button "Delete" [ref=e1233]
+      - generic [ref=e1234] [cursor=pointer]:
+        - paragraph [ref=e1235]: delusional-main-character
+        - paragraph [ref=e1236]: Turns ordinary images into overconfident inner-monologue memes where the subject acts like they are
+        - generic [ref=e1237]:
+          - generic [ref=e1238]: View steps →
+          - button "Delete" [ref=e1239]
+      - generic [ref=e1240] [cursor=pointer]:
+        - paragraph [ref=e1241]: test-pto
+        - paragraph [ref=e1242]: e
+        - generic [ref=e1243]:
+          - generic [ref=e1244]: View steps →
+          - button "Delete" [ref=e1245]
+      - generic [ref=e1246] [cursor=pointer]:
+        - paragraph [ref=e1247]: testubg
+        - paragraph [ref=e1248]: —
+        - generic [ref=e1249]:
+          - generic [ref=e1250]: View steps →
+          - button "Delete" [ref=e1251]
+      - generic [ref=e1252] [cursor=pointer]:
+        - paragraph [ref=e1253]: broke-college-student
+        - paragraph [ref=e1254]: college student with no money
+        - generic [ref=e1255]:
+          - generic [ref=e1256]: View steps →
+          - button "Delete" [ref=e1257]
+      - generic [ref=e1258] [cursor=pointer]:
+        - paragraph [ref=e1259]: ai-world-takeover
+        - paragraph [ref=e1260]: A smug AI overlord that sees every image as proof the robot uprising is already underway — dry wit m
+        - generic [ref=e1261]:
+          - generic [ref=e1262]: View steps →
+          - button "Delete" [ref=e1263]
+      - generic [ref=e1264] [cursor=pointer]:
+        - paragraph [ref=e1265]: Akshara-Test-New
+        - paragraph [ref=e1266]: Akshara's humor flavor!!!
+        - generic [ref=e1267]:
+          - generic [ref=e1268]: View steps →
+          - button "Delete" [ref=e1269]
+      - generic [ref=e1270] [cursor=pointer]:
+        - paragraph [ref=e1271]: cartoon-meltdown
+        - paragraph [ref=e1272]: Turns ordinary moments into chaotic, exaggerated, animated reactions with silly, over-the-top energy
+        - generic [ref=e1273]:
+          - generic [ref=e1274]: View steps →
+          - button "Delete" [ref=e1275]
+      - generic [ref=e1276] [cursor=pointer]:
+        - paragraph [ref=e1277]: misterg
+        - paragraph [ref=e1278]: MisterG
+        - generic [ref=e1279]:
+          - generic [ref=e1280]: View steps →
+          - button "Delete" [ref=e1281]
+      - generic [ref=e1282] [cursor=pointer]:
+        - paragraph [ref=e1283]: test-zz
+        - paragraph [ref=e1284]: test-zz
+        - generic [ref=e1285]:
+          - generic [ref=e1286]: View steps →
+          - button "Delete" [ref=e1287]
+      - generic [ref=e1288] [cursor=pointer]:
+        - paragraph [ref=e1289]: dark-nihilist
+        - paragraph [ref=e1290]: Dark, existential humor
+        - generic [ref=e1291]:
+          - generic [ref=e1292]: View steps →
+          - button "Delete" [ref=e1293]
+      - generic [ref=e1294] [cursor=pointer]:
+        - paragraph [ref=e1295]: dad-jokes
+        - paragraph [ref=e1296]: Captions written as classic dad jokes and puns
+        - generic [ref=e1297]:
+          - generic [ref=e1298]: View steps →
+          - button "Delete" [ref=e1299]
+      - generic [ref=e1300] [cursor=pointer]:
+        - paragraph [ref=e1301]: heyyyy
+        - paragraph [ref=e1302]: haytea
+        - generic [ref=e1303]:
+          - generic [ref=e1304]: View steps →
+          - button "Delete" [ref=e1305]
+      - generic [ref=e1306] [cursor=pointer]:
+        - paragraph [ref=e1307]: Football-oops-Soccer-I-meant
+        - paragraph [ref=e1308]: World Cup coming soon! Why not make some jokes about it?
+        - generic [ref=e1309]:
+          - generic [ref=e1310]: View steps →
+          - button "Delete" [ref=e1311]
+      - generic [ref=e1312] [cursor=pointer]:
+        - paragraph [ref=e1313]: new-flavor
+        - paragraph [ref=e1314]: —
+        - generic [ref=e1315]:
+          - generic [ref=e1316]: View steps →
+          - button "Delete" [ref=e1317]
+      - generic [ref=e1318] [cursor=pointer]:
+        - paragraph [ref=e1319]: finance-bro
+        - paragraph [ref=e1320]: Personality of a finance bro.
+        - generic [ref=e1321]:
+          - generic [ref=e1322]: View steps →
+          - button "Delete" [ref=e1323]
+      - generic [ref=e1324] [cursor=pointer]:
+        - paragraph [ref=e1325]: corporate-synergy
+        - paragraph [ref=e1326]: Over-optimizing every life moment using meaningless C-suite jargon.
+        - generic [ref=e1327]:
+          - generic [ref=e1328]: View steps →
+          - button "Delete" [ref=e1329]
+      - generic [ref=e1330] [cursor=pointer]:
+        - paragraph [ref=e1331]: sunset-avoidance-arc
+        - paragraph [ref=e1332]: Turns peaceful nature images into captions from the perspective of a Columbia student pretending one
+        - generic [ref=e1333]:
+          - generic [ref=e1334]: View steps →
+          - button "Delete" [ref=e1335]
+      - generic [ref=e1336] [cursor=pointer]:
+        - paragraph [ref=e1337]: touch-grass-burnout
+        - paragraph [ref=e1338]: Turns peaceful scenic images into captions from the perspective of a deeply burned-out Columbia stud
+        - generic [ref=e1339]:
+          - generic [ref=e1340]: View steps →
+          - button "Delete" [ref=e1341]
+      - generic [ref=e1342] [cursor=pointer]:
+        - paragraph [ref=e1343]: last-air-bender-light
+        - paragraph [ref=e1344]: Fewer steps to crash less
+        - generic [ref=e1345]:
+          - generic [ref=e1346]: View steps →
+          - button "Delete" [ref=e1347]
+      - generic [ref=e1348] [cursor=pointer]:
+        - paragraph [ref=e1349]: col-um-bia-meme
+        - paragraph [ref=e1350]: Memes about Columbia University
+        - generic [ref=e1351]:
+          - generic [ref=e1352]: View steps →
+          - button "Delete" [ref=e1353]
+      - generic [ref=e1354] [cursor=pointer]:
+        - paragraph [ref=e1355]: clavicular
+        - paragraph [ref=e1356]: Clavicular
+        - generic [ref=e1357]:
+          - generic [ref=e1358]: View steps →
+          - button "Delete" [ref=e1359]
+      - generic [ref=e1360] [cursor=pointer]:
+        - paragraph [ref=e1361]: columbia-campus-roast
+        - paragraph [ref=e1362]: Short, sharp, mean-but-funny captions about Columbia/Barnard life, campus status anxiety, Ivy League
+        - generic [ref=e1363]:
+          - generic [ref=e1364]: View steps →
+          - button "Delete" [ref=e1365]
+      - generic [ref=e1366] [cursor=pointer]:
+        - paragraph [ref=e1367]: annas-flavor
+        - paragraph [ref=e1368]: Assignment 10 Humor Flavor
+        - generic [ref=e1369]:
+          - generic [ref=e1370]: View steps →
+          - button "Delete" [ref=e1371]
+      - generic [ref=e1372] [cursor=pointer]:
+        - paragraph [ref=e1373]: sherlock-holmes-crime-scene
+        - paragraph [ref=e1374]: Captions should sound like a detective examining a ridiculous scene with dramatic overanalysis, shar
+        - generic [ref=e1375]:
+          - generic [ref=e1376]: View steps →
+          - button "Delete" [ref=e1377]
+      - generic [ref=e1378] [cursor=pointer]:
+        - paragraph [ref=e1379]: sky-funny
+        - paragraph [ref=e1380]: Sky's humor flavor
+        - generic [ref=e1381]:
+          - generic [ref=e1382]: View steps →
+          - button "Delete" [ref=e1383]
+      - generic [ref=e1384] [cursor=pointer]:
+        - paragraph [ref=e1385]: ivy-league-sleep-deprived-delusion
+        - paragraph [ref=e1386]: Ivy League Sleep-Deprived Delusion
+        - generic [ref=e1387]:
+          - generic [ref=e1388]: View steps →
+          - button "Delete" [ref=e1389]
+      - generic [ref=e1390] [cursor=pointer]:
+        - paragraph [ref=e1391]: last-air-bender-basic
+        - paragraph [ref=e1392]: "Just 1 step: prompt agent to make captions. This is used as a baseline to test other last-air-bender"
+        - generic [ref=e1393]:
+          - generic [ref=e1394]: View steps →
+          - button "Delete" [ref=e1395]
+      - generic [ref=e1396] [cursor=pointer]:
+        - paragraph [ref=e1397]: sofia-test
+        - paragraph [ref=e1398]: New Flavor
+        - generic [ref=e1399]:
+          - generic [ref=e1400]: View steps →
+          - button "Delete" [ref=e1401]
+      - generic [ref=e1402] [cursor=pointer]:
+        - paragraph [ref=e1403]: everything-but-humans
+        - paragraph [ref=e1404]: yuni testing
+        - generic [ref=e1405]:
+          - generic [ref=e1406]: View steps →
+          - button "Delete" [ref=e1407]
+      - generic [ref=e1408] [cursor=pointer]:
+        - paragraph [ref=e1409]: ahmed-test
+        - paragraph [ref=e1410]: ahmed test flavor for assignment 10
+        - generic [ref=e1411]:
+          - generic [ref=e1412]: View steps →
+          - button "Delete" [ref=e1413]
+      - generic [ref=e1414] [cursor=pointer]:
+        - paragraph [ref=e1415]: jennifer-coolidge
+        - paragraph [ref=e1416]: Ibrahim's Humor Flavor
+        - generic [ref=e1417]:
+          - generic [ref=e1418]: View steps →
+          - button "Delete" [ref=e1419]
+      - generic [ref=e1420] [cursor=pointer]:
+        - paragraph [ref=e1421]: brandon-funny
+        - paragraph [ref=e1422]: Treats everyday chaos like a Fortune 500 crisis. Maximum jargon, zero self-awareness.
+        - generic [ref=e1423]:
+          - generic [ref=e1424]: View steps →
+          - button "Delete" [ref=e1425]
+      - generic [ref=e1426] [cursor=pointer]:
+        - paragraph [ref=e1427]: cringey-unhinged-funny
+        - paragraph [ref=e1428]: —
+        - generic [ref=e1429]:
+          - generic [ref=e1430]: View steps →
+          - button "Delete" [ref=e1431]
+      - generic [ref=e1432] [cursor=pointer]:
+        - paragraph [ref=e1433]: campus-chaos-reporter
+        - paragraph [ref=e1434]: Turns ordinary college moments into dramatic live breaking news segments with playful urgency and ov
+        - generic [ref=e1435]:
+          - generic [ref=e1436]: View steps →
+          - button "Delete" [ref=e1437]
+      - generic [ref=e1438] [cursor=pointer]:
+        - paragraph [ref=e1439]: kian-humor
+        - paragraph [ref=e1440]: Simple humor flavor that identifies what is happening in the image, points out the most awkward or i
+        - generic [ref=e1441]:
+          - generic [ref=e1442]: View steps →
+          - button "Delete" [ref=e1443]
+      - generic [ref=e1444] [cursor=pointer]:
+        - paragraph [ref=e1445]: kafkaesque
+        - paragraph [ref=e1446]: Deadpan absurdist humor in the style of Franz Kafka. Treats the mundane as menacing and the surreal
+        - generic [ref=e1447]:
+          - generic [ref=e1448]: View steps →
+          - button "Delete" [ref=e1449]
+      - generic [ref=e1450] [cursor=pointer]:
+        - paragraph [ref=e1451]: hihihihi
+        - paragraph [ref=e1452]: —
+        - generic [ref=e1453]:
+          - generic [ref=e1454]: View steps →
+          - button "Delete" [ref=e1455]
+      - generic [ref=e1456] [cursor=pointer]:
+        - paragraph [ref=e1457]: flavor-1774978753283
+        - paragraph [ref=e1458]: Columbia Freshman
+        - generic [ref=e1459]:
+          - generic [ref=e1460]: View steps →
+          - button "Delete" [ref=e1461]
+      - generic [ref=e1462] [cursor=pointer]:
+        - paragraph [ref=e1463]: brainrot-roasts
+        - paragraph [ref=e1464]: Internet brainrot style captions that exaggerate absurdity, chaos, and overdramatic reactions
+        - generic [ref=e1465]:
+          - generic [ref=e1466]: View steps →
+          - button "Delete" [ref=e1467]
+      - generic [ref=e1468] [cursor=pointer]:
+        - paragraph [ref=e1469]: test-flavor-new
+        - paragraph [ref=e1470]: Test humor flavor for prompt chain tool
+        - generic [ref=e1471]:
+          - generic [ref=e1472]: View steps →
+          - button "Delete" [ref=e1473]
+      - generic [ref=e1474] [cursor=pointer]:
+        - paragraph [ref=e1475]: wall-e
+        - paragraph [ref=e1476]: It is as if WALL-E is talking to you.
+        - generic [ref=e1477]:
+          - generic [ref=e1478]: View steps →
+          - button "Delete" [ref=e1479]
+      - generic [ref=e1480] [cursor=pointer]:
+        - paragraph [ref=e1481]: new-york-city
+        - paragraph [ref=e1482]: will update later
+        - generic [ref=e1483]:
+          - generic [ref=e1484]: View steps →
+          - button "Delete" [ref=e1485]
+      - generic [ref=e1486] [cursor=pointer]:
+        - paragraph [ref=e1487]: tech_skeptic
+        - paragraph [ref=e1488]: Observes the AI takeover with deep suspicion and mild outrage. Remembers when you just called a pers
+        - generic [ref=e1489]:
+          - generic [ref=e1490]: View steps →
+          - button "Delete" [ref=e1491]
+      - generic [ref=e1492] [cursor=pointer]:
+        - paragraph [ref=e1493]: Modal Test
+        - paragraph [ref=e1494]: testing modal feature
+        - generic [ref=e1495]:
+          - generic [ref=e1496]: View steps →
+          - button "Delete" [ref=e1497]
+      - generic [ref=e1498] [cursor=pointer]:
+        - paragraph [ref=e1499]: New-test-flavor
+        - paragraph [ref=e1500]: test
+        - generic [ref=e1501]:
+          - generic [ref=e1502]: View steps →
+          - button "Delete" [ref=e1503]
+      - generic [ref=e1504] [cursor=pointer]:
+        - paragraph [ref=e1505]: co-lum-bia-copy 2
+        - paragraph [ref=e1506]: Columbia Part 1 (Associations Only)
+        - generic [ref=e1507]:
+          - generic [ref=e1508]: View steps →
+          - button "Delete" [ref=e1509]
+      - generic [ref=e1510] [cursor=pointer]:
+        - paragraph [ref=e1511]: test-100
+        - paragraph [ref=e1512]: this is simply a test
+        - generic [ref=e1513]:
+          - generic [ref=e1514]: View steps →
+          - button "Delete" [ref=e1515]
+      - generic [ref=e1516] [cursor=pointer]:
+        - paragraph [ref=e1517]: The-Vibe-Code-Bro
+        - paragraph [ref=e1518]: This flavor is meant to imitate and poke fun at the new wave of vibe coding tech bro archetypes appe
+        - generic [ref=e1519]:
+          - generic [ref=e1520]: View steps →
+          - button "Delete" [ref=e1521]
+      - generic [ref=e1522] [cursor=pointer]:
+        - paragraph [ref=e1523]: co-lum-bia-mndk0d8b
+        - paragraph [ref=e1524]: Columbia Part 1 (Associations Only)
+        - generic [ref=e1525]:
+          - generic [ref=e1526]: View steps →
+          - button "Delete" [ref=e1527]
+      - generic [ref=e1528] [cursor=pointer]:
+        - paragraph [ref=e1529]: yolov1 test
+        - paragraph [ref=e1530]: uhh
+        - generic [ref=e1531]:
+          - generic [ref=e1532]: View steps →
+          - button "Delete" [ref=e1533]
+      - generic [ref=e1534] [cursor=pointer]:
+        - paragraph [ref=e1535]: gossip-girl
+        - paragraph [ref=e1536]: xoxo, gossip girl
+        - generic [ref=e1537]:
+          - generic [ref=e1538]: View steps →
+          - button "Delete" [ref=e1539]
+      - generic [ref=e1540] [cursor=pointer]:
+        - paragraph [ref=e1541]: the-best-flavor
+        - paragraph [ref=e1542]: —
+        - generic [ref=e1543]:
+          - generic [ref=e1544]: View steps →
+          - button "Delete" [ref=e1545]
+      - generic [ref=e1546] [cursor=pointer]:
+        - paragraph [ref=e1547]: how-it-be-like
+        - paragraph [ref=e1548]: try it out!
+        - generic [ref=e1549]:
+          - generic [ref=e1550]: View steps →
+          - button "Delete" [ref=e1551]
+      - generic [ref=e1552] [cursor=pointer]:
+        - paragraph [ref=e1553]: pov-me
+        - paragraph [ref=e1554]: Humor flavor dedicated to creating POV me style memes
+        - generic [ref=e1555]:
+          - generic [ref=e1556]: View steps →
+          - button "Delete" [ref=e1557]
+      - generic [ref=e1558] [cursor=pointer]:
+        - paragraph [ref=e1559]: test-2
+        - paragraph [ref=e1560]
+        - generic [ref=e1561]:
+          - generic [ref=e1562]: View steps →
+          - button "Delete" [ref=e1563]
+      - generic [ref=e1564] [cursor=pointer]:
+        - paragraph [ref=e1565]: trump
+        - paragraph [ref=e1566]: Funny things about Donald Trump
+        - generic [ref=e1567]:
+          - generic [ref=e1568]: View steps →
+          - button "Delete" [ref=e1569]
+      - generic [ref=e1570] [cursor=pointer]:
+        - paragraph [ref=e1571]: Baba My Beloved Tabby
+        - paragraph [ref=e1572]: Kitty! It's Baba!
+        - generic [ref=e1573]:
+          - generic [ref=e1574]: View steps →
+          - button "Delete" [ref=e1575]
+      - generic [ref=e1576] [cursor=pointer]:
+        - paragraph [ref=e1577]: overconfident-expert
+        - paragraph [ref=e1578]: Captions are written in the tone of a highly confident expert explaining the situation with absolute
+        - generic [ref=e1579]:
+          - generic [ref=e1580]: View steps →
+          - button "Delete" [ref=e1581]
+      - generic [ref=e1582] [cursor=pointer]:
+        - paragraph [ref=e1583]: linkedin-speak
+        - paragraph [ref=e1584]: Generates absurd, hustle-culture captions filled with corporate jargon, toxic positivity, and exagge
+        - generic [ref=e1585]:
+          - generic [ref=e1586]: View steps →
+          - button "Delete" [ref=e1587]
+      - generic [ref=e1588] [cursor=pointer]:
+        - paragraph [ref=e1589]: gen-z-sf-techbro-test
+        - paragraph [ref=e1590]: Experimental duplicate of the gen-z-dark-roast flavor.
+        - generic [ref=e1591]:
+          - generic [ref=e1592]: View steps →
+          - button "Delete" [ref=e1593]
+      - generic [ref=e1594] [cursor=pointer]:
+        - paragraph [ref=e1595]: existential-absurdist
+        - paragraph [ref=e1596]: Captions that blend existential dread with absurdist humor — finding the cosmic joke in mundane situ
+        - generic [ref=e1597]:
+          - generic [ref=e1598]: View steps →
+          - button "Delete" [ref=e1599]
+      - generic [ref=e1600] [cursor=pointer]:
+        - paragraph [ref=e1601]: stan-twitter
+        - paragraph [ref=e1602]: sounds like a twitter stan account
+        - generic [ref=e1603]:
+          - generic [ref=e1604]: View steps →
+          - button "Delete" [ref=e1605]
+      - generic [ref=e1606] [cursor=pointer]:
+        - paragraph [ref=e1607]: corporate-memo
+        - paragraph [ref=e1608]: Captions formatted as overly formal corporate memos filled with business buzzwords and office jargon
+        - generic [ref=e1609]:
+          - generic [ref=e1610]: View steps →
+          - button "Delete" [ref=e1611]
+      - generic [ref=e1612] [cursor=pointer]:
+        - paragraph [ref=e1613]: Friends test
+        - paragraph [ref=e1614]
+        - generic [ref=e1615]:
+          - generic [ref=e1616]: View steps →
+          - button "Delete" [ref=e1617]
+      - generic [ref=e1618] [cursor=pointer]:
+        - paragraph [ref=e1619]: deadpan-existential
+        - paragraph [ref=e1620]: Deadpan one-liners that quietly question existence. Dry, understated, and subtly absurd — like the u
+        - generic [ref=e1621]:
+          - generic [ref=e1622]: View steps →
+          - button "Delete" [ref=e1623]
+      - generic [ref=e1624] [cursor=pointer]:
+        - paragraph [ref=e1625]: stewie-griffin
+        - paragraph [ref=e1626]: From the famous show family guy, Stewie Griffin’s humor is primarily characterized by dark, sophisti
+        - generic [ref=e1627]:
+          - generic [ref=e1628]: View steps →
+          - button "Delete" [ref=e1629]
+      - generic [ref=e1630] [cursor=pointer]:
+        - paragraph [ref=e1631]: wantingtest
+        - paragraph [ref=e1632]: funniest caption generator
+        - generic [ref=e1633]:
+          - generic [ref=e1634]: View steps →
+          - button "Delete" [ref=e1635]
+      - generic [ref=e1636] [cursor=pointer]:
+        - paragraph [ref=e1637]: brainrot
+        - paragraph [ref=e1638]: Literally just brainrot terms that try to find a punchline.
+        - generic [ref=e1639]:
+          - generic [ref=e1640]: View steps →
+          - button "Delete" [ref=e1641]
+      - generic [ref=e1642] [cursor=pointer]:
+        - paragraph [ref=e1643]: mitchell-test
+        - paragraph [ref=e1644]: testing
+        - generic [ref=e1645]:
+          - generic [ref=e1646]: View steps →
+          - button "Delete" [ref=e1647]
+      - generic [ref=e1648] [cursor=pointer]:
+        - paragraph [ref=e1649]: ancient-greek-TEST
+        - paragraph [ref=e1650]: Percy jackson, greek gods, and ancient themed and references
+        - generic [ref=e1651]:
+          - generic [ref=e1652]: View steps →
+          - button "Delete" [ref=e1653]
+      - generic [ref=e1654] [cursor=pointer]:
+        - paragraph [ref=e1655]: ancient-greek-2
+        - paragraph [ref=e1656]: Percy jackson, greek gods, and ancient themed and references
+        - generic [ref=e1657]:
+          - generic [ref=e1658]: View steps →
+          - button "Delete" [ref=e1659]
+      - generic [ref=e1660] [cursor=pointer]:
+        - paragraph [ref=e1661]: ancient-greek
+        - paragraph [ref=e1662]: Percy jackson, greek gods, and ancient themed and references
+        - generic [ref=e1663]:
+          - generic [ref=e1664]: View steps →
+          - button "Delete" [ref=e1665]
+      - generic [ref=e1666] [cursor=pointer]:
+        - paragraph [ref=e1667]: fadsf
+        - paragraph [ref=e1668]: dsf
+        - generic [ref=e1669]:
+          - generic [ref=e1670]: View steps →
+          - button "Delete" [ref=e1671]
+      - generic [ref=e1672] [cursor=pointer]:
+        - paragraph [ref=e1673]: temp
+        - paragraph [ref=e1674]: this is aeieuheiue
+        - generic [ref=e1675]:
+          - generic [ref=e1676]: View steps →
+          - button "Delete" [ref=e1677]
+      - generic [ref=e1678] [cursor=pointer]:
+        - paragraph [ref=e1679]: az test
+        - paragraph [ref=e1680]: atewtwe
+        - generic [ref=e1681]:
+          - generic [ref=e1682]: View steps →
+          - button "Delete" [ref=e1683]
+      - generic [ref=e1684] [cursor=pointer]:
+        - paragraph [ref=e1685]: ewrwer
+        - paragraph [ref=e1686]: ewrwerwerewrw
+        - generic [ref=e1687]:
+          - generic [ref=e1688]: View steps →
+          - button "Delete" [ref=e1689]
+      - generic [ref=e1690] [cursor=pointer]:
+        - paragraph [ref=e1691]: Old British Humor
+        - paragraph [ref=e1692]: Very Witty humor with a bit of sarcasm
+        - generic [ref=e1693]:
+          - generic [ref=e1694]: View steps →
+          - button "Delete" [ref=e1695]
+      - generic [ref=e1696] [cursor=pointer]:
+        - paragraph [ref=e1697]: MEAN
+        - paragraph [ref=e1698]: hella meaannn
+        - generic [ref=e1699]:
+          - generic [ref=e1700]: View steps →
+          - button "Delete" [ref=e1701]
+      - generic [ref=e1702] [cursor=pointer]:
+        - paragraph [ref=e1703]: testttt
+        - paragraph [ref=e1704]: testtttt
+        - generic [ref=e1705]:
+          - generic [ref=e1706]: View steps →
+          - button "Delete" [ref=e1707]
+      - generic [ref=e1708] [cursor=pointer]:
+        - paragraph [ref=e1709]: mean
+        - paragraph [ref=e1710]: Be absolutely mean (no profanity!)
+        - generic [ref=e1711]:
+          - generic [ref=e1712]: View steps →
+          - button "Delete" [ref=e1713]
+      - generic [ref=e1714] [cursor=pointer]:
+        - paragraph [ref=e1715]: last-air-bender
+        - paragraph [ref=e1716]: Avatar the Last Airbender based humor
+        - generic [ref=e1717]:
+          - generic [ref=e1718]: View steps →
+          - button "Delete" [ref=e1719]
+      - generic [ref=e1720] [cursor=pointer]:
+        - paragraph [ref=e1721]: ava roast
+        - paragraph [ref=e1722]: test
+        - generic [ref=e1723]:
+          - generic [ref=e1724]: View steps →
+          - button "Delete" [ref=e1725]
+      - generic [ref=e1726] [cursor=pointer]:
+        - paragraph [ref=e1727]: dark-humor2-copy
+        - paragraph [ref=e1728]: edgy dark humor
+        - generic [ref=e1729]:
+          - generic [ref=e1730]: View steps →
+          - button "Delete" [ref=e1731]
+      - generic [ref=e1732] [cursor=pointer]:
+        - paragraph [ref=e1733]: dark-humor2
+        - paragraph [ref=e1734]: edgy dark humor
+        - generic [ref=e1735]:
+          - generic [ref=e1736]: View steps →
+          - button "Delete" [ref=e1737]
+      - generic [ref=e1738] [cursor=pointer]:
+        - paragraph [ref=e1739]: dark-humor1
+        - paragraph [ref=e1740]: edgy dark humor
+        - generic [ref=e1741]:
+          - generic [ref=e1742]: View steps →
+          - button "Delete" [ref=e1743]
+      - generic [ref=e1744] [cursor=pointer]:
+        - paragraph [ref=e1745]: darkness
+        - paragraph [ref=e1746]: dark edgy humor
+        - generic [ref=e1747]:
+          - generic [ref=e1748]: View steps →
+          - button "Delete" [ref=e1749]
+      - generic [ref=e1750] [cursor=pointer]:
+        - paragraph [ref=e1751]: lior
+        - paragraph [ref=e1752]: alsd;kjfk
+        - generic [ref=e1753]:
+          - generic [ref=e1754]: View steps →
+          - button "Delete" [ref=e1755]
+      - generic [ref=e1756] [cursor=pointer]:
+        - paragraph [ref=e1757]: testingtestingtesting
+        - paragraph [ref=e1758]: TESTINGGGGGUWUOWO
+        - generic [ref=e1759]:
+          - generic [ref=e1760]: View steps →
+          - button "Delete" [ref=e1761]
+      - generic [ref=e1762] [cursor=pointer]:
+        - paragraph [ref=e1763]: test6
+        - paragraph [ref=e1764]: testing
+        - generic [ref=e1765]:
+          - generic [ref=e1766]: View steps →
+          - button "Delete" [ref=e1767]
+      - generic [ref=e1768] [cursor=pointer]:
+        - paragraph [ref=e1769]: testing5
+        - paragraph [ref=e1770]: testing
+        - generic [ref=e1771]:
+          - generic [ref=e1772]: View steps →
+          - button "Delete" [ref=e1773]
+      - generic [ref=e1774] [cursor=pointer]:
+        - paragraph [ref=e1775]: co-lum-bia-copy
+        - paragraph [ref=e1776]: Columbia Part 1 (Associations Only) (Copy)
+        - generic [ref=e1777]:
+          - generic [ref=e1778]: View steps →
+          - button "Delete" [ref=e1779]
+      - generic [ref=e1780] [cursor=pointer]:
+        - paragraph [ref=e1781]: testing4
+        - paragraph [ref=e1782]
+        - generic [ref=e1783]:
+          - generic [ref=e1784]: View steps →
+          - button "Delete" [ref=e1785]
+      - generic [ref=e1786] [cursor=pointer]:
+        - paragraph [ref=e1787]: sports
+        - paragraph [ref=e1788]: sports theme
+        - generic [ref=e1789]:
+          - generic [ref=e1790]: View steps →
+          - button "Delete" [ref=e1791]
+      - generic [ref=e1792] [cursor=pointer]:
+        - paragraph [ref=e1793]: Ex
+        - paragraph [ref=e1794]
+        - generic [ref=e1795]:
+          - generic [ref=e1796]: View steps →
+          - button "Delete" [ref=e1797]
+      - generic [ref=e1798] [cursor=pointer]:
+        - paragraph [ref=e1799]: bbball
+        - paragraph [ref=e1800]: basketball flavor!
+        - generic [ref=e1801]:
+          - generic [ref=e1802]: View steps →
+          - button "Delete" [ref=e1803]
+      - generic [ref=e1804] [cursor=pointer]:
+        - paragraph [ref=e1805]: test-demo
+        - paragraph [ref=e1806]: week 8 test
+        - generic [ref=e1807]:
+          - generic [ref=e1808]: View steps →
+          - button "Delete" [ref=e1809]
+      - generic [ref=e1810] [cursor=pointer]:
+        - paragraph [ref=e1811]: g
+        - paragraph [ref=e1812]
+        - generic [ref=e1813]:
+          - generic [ref=e1814]: View steps →
+          - button "Delete" [ref=e1815]
+      - generic [ref=e1816] [cursor=pointer]:
+        - paragraph [ref=e1817]: Sarcastic
+        - paragraph [ref=e1818]: Step-based prompt chain for short, sharp captions.
+        - generic [ref=e1819]:
+          - generic [ref=e1820]: View steps →
+          - button "Delete" [ref=e1821]
+      - generic [ref=e1822] [cursor=pointer]:
+        - paragraph [ref=e1823]: Homework-8-Test
+        - paragraph [ref=e1824]: Test for homework 8
+        - generic [ref=e1825]:
+          - generic [ref=e1826]: View steps →
+          - button "Delete" [ref=e1827]
+      - generic [ref=e1828] [cursor=pointer]:
+        - paragraph [ref=e1829]: hello world 2
+        - paragraph [ref=e1830]: creates hello world memes
+        - generic [ref=e1831]:
+          - generic [ref=e1832]: View steps →
+          - button "Delete" [ref=e1833]
+      - generic [ref=e1834] [cursor=pointer]:
+        - paragraph [ref=e1835]: sarcastic-campus-2
+        - paragraph [ref=e1836]: sarcasm
+        - generic [ref=e1837]:
+          - generic [ref=e1838]: View steps →
+          - button "Delete" [ref=e1839]
+      - generic [ref=e1840] [cursor=pointer]:
+        - paragraph [ref=e1841]: Sarcastic Dry Humor
+        - paragraph [ref=e1842]: Step-based prompt chain for short, sharp captions.
+        - generic [ref=e1843]:
+          - generic [ref=e1844]: View steps →
+          - button "Delete" [ref=e1845]
+      - generic [ref=e1846] [cursor=pointer]:
+        - paragraph [ref=e1847]: Homework 8 Test
+        - paragraph [ref=e1848]: Testing to see if my humor flavor will be persisted
+        - generic [ref=e1849]:
+          - generic [ref=e1850]: View steps →
+          - button "Delete" [ref=e1851]
+      - generic [ref=e1852] [cursor=pointer]:
+        - paragraph [ref=e1853]: sarcastic-campus
+        - paragraph [ref=e1854]: sarcasm
+        - generic [ref=e1855]:
+          - generic [ref=e1856]: View steps →
+          - button "Delete" [ref=e1857]
+      - generic [ref=e1858] [cursor=pointer]:
+        - paragraph [ref=e1859]: Chabbadieee
+        - paragraph [ref=e1860]: Good jewish humor
+        - generic [ref=e1861]:
+          - generic [ref=e1862]: View steps →
+          - button "Delete" [ref=e1863]
+      - generic [ref=e1864] [cursor=pointer]:
+        - paragraph [ref=e1865]: demotest
+        - paragraph [ref=e1866]: test
+        - generic [ref=e1867]:
+          - generic [ref=e1868]: View steps →
+          - button "Delete" [ref=e1869]
+      - generic [ref=e1870] [cursor=pointer]:
+        - paragraph [ref=e1871]: Mosh humor
+        - paragraph [ref=e1872]: Only for those who eat, breathe, and kumu kumu l'avodat haboreh Moshava IO
+        - generic [ref=e1873]:
+          - generic [ref=e1874]: View steps →
+          - button "Delete" [ref=e1875]
+      - generic [ref=e1876] [cursor=pointer]:
+        - paragraph [ref=e1877]: test-week8-justin
+        - paragraph [ref=e1878]: "1"
+        - generic [ref=e1879]:
+          - generic [ref=e1880]: View steps →
+          - button "Delete" [ref=e1881]
+      - generic [ref=e1882] [cursor=pointer]:
+        - paragraph [ref=e1883]: hello
+        - paragraph [ref=e1884]: —
+        - generic [ref=e1885]:
+          - generic [ref=e1886]: View steps →
+          - button "Delete" [ref=e1887]
+      - generic [ref=e1888] [cursor=pointer]:
+        - paragraph [ref=e1889]: haii
+        - paragraph [ref=e1890]: welcome
+        - generic [ref=e1891]:
+          - generic [ref=e1892]: View steps →
+          - button "Delete" [ref=e1893]
+      - generic [ref=e1894] [cursor=pointer]:
+        - paragraph [ref=e1895]: test1
+        - paragraph [ref=e1896]: —
+        - generic [ref=e1897]:
+          - generic [ref=e1898]: View steps →
+          - button "Delete" [ref=e1899]
+      - generic [ref=e1900] [cursor=pointer]:
+        - paragraph [ref=e1901]: xsatesting1
+        - paragraph [ref=e1902]: test
+        - generic [ref=e1903]:
+          - generic [ref=e1904]: View steps →
+          - button "Delete" [ref=e1905]
+      - generic [ref=e1906] [cursor=pointer]:
+        - paragraph [ref=e1907]: dark
+        - paragraph [ref=e1908]: edgy dark humor
+        - generic [ref=e1909]:
+          - generic [ref=e1910]: View steps →
+          - button "Delete" [ref=e1911]
+      - generic [ref=e1912] [cursor=pointer]:
+        - paragraph [ref=e1913]: bryce-test
+        - paragraph [ref=e1914]: test
+        - generic [ref=e1915]:
+          - generic [ref=e1916]: View steps →
+          - button "Delete" [ref=e1917]
+      - generic [ref=e1918] [cursor=pointer]:
+        - paragraph [ref=e1919]: test24566
+        - paragraph [ref=e1920]: ff
+        - generic [ref=e1921]:
+          - generic [ref=e1922]: View steps →
+          - button "Delete" [ref=e1923]
+      - generic [ref=e1924] [cursor=pointer]:
+        - paragraph [ref=e1925]: y-test
+        - paragraph [ref=e1926]: "1"
+        - generic [ref=e1927]:
+          - generic [ref=e1928]: View steps →
+          - button "Delete" [ref=e1929]
+      - generic [ref=e1930] [cursor=pointer]:
+        - paragraph [ref=e1931]: xsatesting
+        - paragraph [ref=e1932]
+        - generic [ref=e1933]:
+          - generic [ref=e1934]: View steps →
+          - button "Delete" [ref=e1935]
+      - generic [ref=e1936] [cursor=pointer]:
+        - paragraph [ref=e1937]: test1234
+        - paragraph [ref=e1938]: tell me a knock knock joke
+        - generic [ref=e1939]:
+          - generic [ref=e1940]: View steps →
+          - button "Delete" [ref=e1941]
+      - generic [ref=e1942] [cursor=pointer]:
+        - paragraph [ref=e1943]: leana
+        - paragraph [ref=e1944]: testing
+        - generic [ref=e1945]:
+          - generic [ref=e1946]: View steps →
+          - button "Delete" [ref=e1947]
+      - generic [ref=e1948] [cursor=pointer]:
+        - paragraph [ref=e1949]: testingsdf
+        - paragraph [ref=e1950]: testing
+        - generic [ref=e1951]:
+          - generic [ref=e1952]: View steps →
+          - button "Delete" [ref=e1953]
+      - generic [ref=e1954] [cursor=pointer]:
+        - paragraph [ref=e1955]: test181
+        - paragraph [ref=e1956]: "182"
+        - generic [ref=e1957]:
+          - generic [ref=e1958]: View steps →
+          - button "Delete" [ref=e1959]
+      - generic [ref=e1960] [cursor=pointer]:
+        - paragraph [ref=e1961]: deadpan-escalation
+        - paragraph [ref=e1962]: Deadpan escalation
+        - generic [ref=e1963]:
+          - generic [ref=e1964]: View steps →
+          - button "Delete" [ref=e1965]
+      - generic [ref=e1966] [cursor=pointer]:
+        - paragraph [ref=e1967]: roast
+        - paragraph [ref=e1968]: be mean
+        - generic [ref=e1969]:
+          - generic [ref=e1970]: View steps →
+          - button "Delete" [ref=e1971]
+      - generic [ref=e1972] [cursor=pointer]:
+        - paragraph [ref=e1973]: discorddd11
+        - paragraph [ref=e1974]: discorddd
+        - generic [ref=e1975]:
+          - generic [ref=e1976]: View steps →
+          - button "Delete" [ref=e1977]
+      - generic [ref=e1978] [cursor=pointer]:
+        - paragraph [ref=e1979]: jonathan-oversharer
+        - paragraph [ref=e1980]: "3-step chain: describe the image literally, rewrite it as if the subject is desperately oversharing"
+        - generic [ref=e1981]:
+          - generic [ref=e1982]: View steps →
+          - button "Delete" [ref=e1983]
+      - generic [ref=e1984] [cursor=pointer]:
+        - paragraph [ref=e1985]: gen-z-dark-roast-copy
+        - paragraph [ref=e1986]: "Copy of Classic 3-step pipeline: celebrity recognition, image description, then dark Gen Z humor cap"
+        - generic [ref=e1987]:
+          - generic [ref=e1988]: View steps →
+          - button "Delete" [ref=e1989]
+      - generic [ref=e1990] [cursor=pointer]:
+        - paragraph [ref=e1991]: brandon-test
+        - paragraph [ref=e1992]
+        - generic [ref=e1993]:
+          - generic [ref=e1994]: View steps →
+          - button "Delete" [ref=e1995]
+      - generic [ref=e1996] [cursor=pointer]:
+        - paragraph [ref=e1997]: test
+        - paragraph [ref=e1998]
+        - generic [ref=e1999]:
+          - generic [ref=e2000]: View steps →
+          - button "Delete" [ref=e2001]
+      - generic [ref=e2002] [cursor=pointer]:
+        - paragraph [ref=e2003]: poor-student
+        - paragraph [ref=e2004]: Unable to relate to these Columbia elite.
+        - generic [ref=e2005]:
+          - generic [ref=e2006]: View steps →
+          - button "Delete" [ref=e2007]
+      - generic [ref=e2008] [cursor=pointer]:
+        - paragraph [ref=e2009]: Baba my beloved
+        - paragraph [ref=e2010]: kitty!
+        - generic [ref=e2011]:
+          - generic [ref=e2012]: View steps →
+          - button "Delete" [ref=e2013]
+      - generic [ref=e2014] [cursor=pointer]:
+        - paragraph [ref=e2015]: amy-test-1
+        - paragraph [ref=e2016]: amy test description
+        - generic [ref=e2017]:
+          - generic [ref=e2018]: View steps →
+          - button "Delete" [ref=e2019]
+      - generic [ref=e2020] [cursor=pointer]:
+        - paragraph [ref=e2021]: Omer - Assignment 10
+        - paragraph [ref=e2022]: Test
+        - generic [ref=e2023]:
+          - generic [ref=e2024]: View steps →
+          - button "Delete" [ref=e2025]
+      - generic [ref=e2026] [cursor=pointer]:
+        - paragraph [ref=e2027]: gilad-deadpan
+        - paragraph [ref=e2028]: "Dry, deadpan humor — observes the obvious with complete seriousness. Two-step chain: image descripti"
+        - generic [ref=e2029]:
+          - generic [ref=e2030]: View steps →
+          - button "Delete" [ref=e2031]
+      - generic [ref=e2032] [cursor=pointer]:
+        - paragraph [ref=e2033]: Bar-test
+        - paragraph [ref=e2034]: Sarcastic testing
+        - generic [ref=e2035]:
+          - generic [ref=e2036]: View steps →
+          - button "Delete" [ref=e2037]
+      - generic [ref=e2038] [cursor=pointer]:
+        - paragraph [ref=e2039]: omer-test-copy copy
+        - paragraph [ref=e2040]: testing
+        - generic [ref=e2041]:
+          - generic [ref=e2042]: View steps →
+          - button "Delete" [ref=e2043]
+      - generic [ref=e2044] [cursor=pointer]:
+        - paragraph [ref=e2045]: omer-test
+        - paragraph [ref=e2046]: testing
+        - generic [ref=e2047]:
+          - generic [ref=e2048]: View steps →
+          - button "Delete" [ref=e2049]
+      - generic [ref=e2050] [cursor=pointer]:
+        - paragraph [ref=e2051]: michelle-test
+        - paragraph [ref=e2052]: testing michelle hw 8
+        - generic [ref=e2053]:
+          - generic [ref=e2054]: View steps →
+          - button "Delete" [ref=e2055]
+      - generic [ref=e2056] [cursor=pointer]:
+        - paragraph [ref=e2057]: fabian-test
+        - paragraph [ref=e2058]: This flavor is used to prove my hw is correct
+        - generic [ref=e2059]:
+          - generic [ref=e2060]: View steps →
+          - button "Delete" [ref=e2061]
+      - generic [ref=e2062] [cursor=pointer]:
+        - paragraph [ref=e2063]: therapist-reads-you
+        - paragraph [ref=e2064]: Spot the person, analyze their body language, then deliver passive-aggressive therapist observations
+        - generic [ref=e2065]:
+          - generic [ref=e2066]: View steps →
+          - button "Delete" [ref=e2067]
+      - generic [ref=e2068] [cursor=pointer]:
+        - paragraph [ref=e2069]: shakespeare-roasts
+        - paragraph [ref=e2070]: Recognize the scene, describe it poetically, then roast in Shakespearean English.
+        - generic [ref=e2071]:
+          - generic [ref=e2072]: View steps →
+          - button "Delete" [ref=e2073]
+      - generic [ref=e2074] [cursor=pointer]:
+        - paragraph [ref=e2075]: sports-commentator
+        - paragraph [ref=e2076]: Identify people/scene, describe the action, then narrate like an unhinged ESPN commentator.
+        - generic [ref=e2077]:
+          - generic [ref=e2078]: View steps →
+          - button "Delete" [ref=e2079]
+      - generic [ref=e2080] [cursor=pointer]:
+        - paragraph [ref=e2081]: gen-z-dark-roast
+        - paragraph [ref=e2082]: "Classic 3-step pipeline: celebrity recognition, image description, then dark Gen Z humor captions."
+        - generic [ref=e2083]:
+          - generic [ref=e2084]: View steps →
+          - button "Delete" [ref=e2085]
+      - generic [ref=e2086] [cursor=pointer]:
+        - paragraph [ref=e2087]: nature-documentary
+        - paragraph [ref=e2088]: Identify the subject, observe their habitat, then narrate like David Attenborough documenting a biza
+        - generic [ref=e2089]:
+          - generic [ref=e2090]: View steps →
+          - button "Delete" [ref=e2091]
+      - generic [ref=e2092] [cursor=pointer]:
+        - paragraph [ref=e2093]: yah-yah-ya
+        - paragraph [ref=e2094]: Humorous Roasts
+        - generic [ref=e2095]:
+          - generic [ref=e2096]: View steps →
+          - button "Delete" [ref=e2097]
+      - generic [ref=e2098] [cursor=pointer]:
+        - paragraph [ref=e2099]: ter-re-lyn-yah-ya
+        - paragraph [ref=e2100]: copy of ter-re-lyn with humor roasts
+        - generic [ref=e2101]:
+          - generic [ref=e2102]: View steps →
+          - button "Delete" [ref=e2103]
+      - generic [ref=e2104] [cursor=pointer]:
+        - paragraph [ref=e2105]: ter-re-lyn-pop-culture
+        - paragraph [ref=e2106]: copy of ter-re-lyn but with pop culture references
+        - generic [ref=e2107]:
+          - generic [ref=e2108]: View steps →
+          - button "Delete" [ref=e2109]
+      - generic [ref=e2110] [cursor=pointer]:
+        - paragraph [ref=e2111]: ter-re-lyn-sidechat
+        - paragraph [ref=e2112]: copy of ter-re-lyn but uses sidechat context
+        - generic [ref=e2113]:
+          - generic [ref=e2114]: View steps →
+          - button "Delete" [ref=e2115]
+      - generic [ref=e2116] [cursor=pointer]:
+        - paragraph [ref=e2117]: ter-re-lyn-sprihaa
+        - paragraph [ref=e2118]: copy of ter-re-lyn for sprihaa experimentation
+        - generic [ref=e2119]:
+          - generic [ref=e2120]: View steps →
+          - button "Delete" [ref=e2121]
+      - generic [ref=e2122] [cursor=pointer]:
+        - paragraph [ref=e2123]: pov-pov-pov-copy
+        - paragraph [ref=e2124]: Copy of A Professor Chilton special flavor.
+        - generic [ref=e2125]:
+          - generic [ref=e2126]: View steps →
+          - button "Delete" [ref=e2127]
+      - generic [ref=e2128] [cursor=pointer]:
+        - paragraph [ref=e2129]: ter-re-lyn-experiment
+        - paragraph [ref=e2130]: WHAT IS FUNNY? experimenting with a copy of ter-re-lyn for research purposes
+        - generic [ref=e2131]:
+          - generic [ref=e2132]: View steps →
+          - button "Delete" [ref=e2133]
+      - generic [ref=e2134] [cursor=pointer]:
+        - paragraph [ref=e2135]: social-justice-warrior
+        - paragraph [ref=e2136]: A social just warrior on a college campus.
+        - generic [ref=e2137]:
+          - generic [ref=e2138]: View steps →
+          - button "Delete" [ref=e2139]
+      - generic [ref=e2140] [cursor=pointer]:
+        - paragraph [ref=e2141]: kai-cenat
+        - paragraph [ref=e2142]: Personality of Kai Cenat, the influencer.
+        - generic [ref=e2143]:
+          - generic [ref=e2144]: View steps →
+          - button "Delete" [ref=e2145]
+      - generic [ref=e2146] [cursor=pointer]:
+        - paragraph [ref=e2147]: corecore-man
+        - paragraph [ref=e2148]: CoreCore man from the Gen-Z generation.
+        - generic [ref=e2149]:
+          - generic [ref=e2150]: View steps →
+          - button "Delete" [ref=e2151]
+      - generic [ref=e2152] [cursor=pointer]:
+        - paragraph [ref=e2153]: russ-hanneman
+        - paragraph [ref=e2154]: Russ Hanneman from Silicon Valley
+        - generic [ref=e2155]:
+          - generic [ref=e2156]: View steps →
+          - button "Delete" [ref=e2157]
+      - generic [ref=e2158] [cursor=pointer]:
+        - paragraph [ref=e2159]: gigachad
+        - paragraph [ref=e2160]: Your typical gigachad.
+        - generic [ref=e2161]:
+          - generic [ref=e2162]: View steps →
+          - button "Delete" [ref=e2163]
+      - generic [ref=e2164] [cursor=pointer]:
+        - paragraph [ref=e2165]: erlich-bachman
+        - paragraph [ref=e2166]: Erlich from Silicon Valley
+        - generic [ref=e2167]:
+          - generic [ref=e2168]: View steps →
+          - button "Delete" [ref=e2169]
+      - generic [ref=e2170] [cursor=pointer]:
+        - paragraph [ref=e2171]: keke-palmer
+        - paragraph [ref=e2172]: A fun Keke Palmer personality.
+        - generic [ref=e2173]:
+          - generic [ref=e2174]: View steps →
+          - button "Delete" [ref=e2175]
+      - generic [ref=e2176] [cursor=pointer]:
+        - paragraph [ref=e2177]: dwight-shrute
+        - paragraph [ref=e2178]: "FACT: The funniest humor flavor."
+        - generic [ref=e2179]:
+          - generic [ref=e2180]: View steps →
+          - button "Delete" [ref=e2181]
+      - generic [ref=e2182] [cursor=pointer]:
+        - paragraph [ref=e2183]: do-not-use-ter-re-lyn-gen
+        - paragraph [ref=e2184]: do not use
+        - generic [ref=e2185]:
+          - generic [ref=e2186]: View steps →
+          - button "Delete" [ref=e2187]
+      - generic [ref=e2188] [cursor=pointer]:
+        - paragraph [ref=e2189]: co-lum-bia
+        - paragraph [ref=e2190]: Columbia Part 1 (Associations Only)
+        - generic [ref=e2191]:
+          - generic [ref=e2192]: View steps →
+          - button "Delete" [ref=e2193]
+  - button "Open Next.js Dev Tools" [ref=e2199] [cursor=pointer]:
+    - img [ref=e2200]
+  - alert [ref=e2203]
+```
+
+# Test source
+
+```ts
+  1  | import { test, expect } from '@playwright/test'
+  2  | 
+  3  | test('authenticated user can access /flavors', async ({ page }) => {
+  4  |   await page.goto('/flavors')
+  5  |   await expect(page).toHaveURL(/\/flavors/)
+  6  |   await expect(page.getByText('Flavors.')).toBeVisible()
+  7  | })
+  8  | 
+  9  | test('flavors page shows Admin label', async ({ page }) => {
+  10 |   await page.goto('/flavors')
+  11 |   await expect(page.getByText('Admin')).toBeVisible()
+  12 | })
+  13 | 
+  14 | test('flavors page has New Flavor button', async ({ page }) => {
+  15 |   await page.goto('/flavors')
+  16 |   await expect(page.getByText('+ New Flavor')).toBeVisible()
+  17 | })
+  18 | 
+  19 | test('can create and delete a flavor', async ({ page }) => {
+  20 |   await page.goto('/flavors')
+  21 | 
+  22 |   const slug = `playwright-test-${Date.now()}`
+  23 | 
+  24 |   // Open new flavor modal
+  25 |   await page.click('text=+ New Flavor')
+  26 |   await expect(page.getByText('New Humor Flavor')).toBeVisible()
+  27 | 
+  28 |   // Fill in slug
+  29 |   await page.getByPlaceholder('e.g. stan-twitter').fill(slug)
+  30 |   await page.click('text=Create Flavor')
+  31 | 
+  32 |   // Flavor should appear in list
+  33 |   await expect(page.getByText(slug)).toBeVisible()
+  34 | 
+  35 |   // Delete it
+  36 |   const card = page.locator('.flavor-card', { hasText: slug })
+  37 |   await card.getByText('Delete').click()
+  38 |   page.on('dialog', d => d.accept())
+> 39 |   await expect(page.getByText(slug)).not.toBeVisible()
+     |                                          ^ Error: expect(locator).not.toBeVisible() failed
+  40 | })
+  41 | 
+  42 | test('can open a flavor and see steps panel', async ({ page }) => {
+  43 |   await page.goto('/flavors')
+  44 | 
+  45 |   const slug = `playwright-steps-${Date.now()}`
+  46 | 
+  47 |   // Create a flavor to open
+  48 |   await page.click('text=+ New Flavor')
+  49 |   await page.getByPlaceholder('e.g. stan-twitter').fill(slug)
+  50 |   await page.click('text=Create Flavor')
+  51 |   await expect(page.getByText(slug)).toBeVisible()
+  52 | 
+  53 |   // Open it
+  54 |   await page.locator('.flavor-card', { hasText: slug }).click()
+  55 |   await expect(page.getByText('Steps · 0')).toBeVisible()
+  56 |   await expect(page.getByText('+ Add Step')).toBeVisible()
+  57 | 
+  58 |   // Go back and delete
+  59 |   await page.getByText('Flavors').click()
+  60 |   const card = page.locator('.flavor-card', { hasText: slug })
+  61 |   await card.getByText('Delete').click()
+  62 |   page.on('dialog', d => d.accept())
+  63 | })
+  64 | 
+  65 | test('theme toggle cycles through modes', async ({ page }) => {
+  66 |   await page.goto('/flavors')
+  67 |   const toggle = page.locator('button', { hasText: /Light|Dark|System/ })
+  68 |   await expect(toggle).toBeVisible()
+  69 |   await toggle.click()
+  70 |   await expect(toggle).toBeVisible()
+  71 | })
+  72 | 
+```

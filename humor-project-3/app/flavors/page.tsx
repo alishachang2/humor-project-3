@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import { useTheme } from 'next-themes'
 
-const API_BASE = 'https://api.almostcrackd.ai'
 
 // ─── types ────────────────────────────────────────────────────────────────────
 
@@ -31,8 +30,9 @@ type Step = {
   humor_flavor_step_type_id: number | null
 }
 
-type LlmModel = { id: number; name: string }
-type ImageRow  = { id: number; url: string }
+type LlmModel  = { id: number; name: string }
+type ImageRow   = { id: string; url: string }
+type ImageSet   = { id: number; slug: string; description: string | null; created_datetime_utc: string; images: ImageRow[] }
 
 const INPUT_TYPES  = [{ id: 1, label: 'Image + Text' }, { id: 2, label: 'Text Only' }]
 const OUTPUT_TYPES = [{ id: 1, label: 'String' }, { id: 2, label: 'Array' }]
@@ -196,6 +196,13 @@ export function PromptText({ text }: { text: string }) {
   )
 }
 
+// ─── caption response parsing ─────────────────────────────────────────────────
+
+export function parseCaptionsResponse(data: unknown): string[] {
+  const list = Array.isArray(data) ? data : ((data as any)?.captions ?? (data as any)?.data ?? [])
+  return (list as any[]).map(c => c.content ?? c.caption ?? JSON.stringify(c))
+}
+
 // ─── main page ────────────────────────────────────────────────────────────────
 
 export default function FlavorsPage() {
@@ -207,6 +214,9 @@ export default function FlavorsPage() {
   const [flavors, setFlavors]           = useState<Flavor[]>([])
   const [models, setModels]             = useState<LlmModel[]>([])
   const [images, setImages]             = useState<ImageRow[]>([])
+  const [imageSets, setImageSets]       = useState<ImageSet[]>([])
+  const [imageSetsError, setImageSetsError] = useState('')
+  const [showLibrary, setShowLibrary]   = useState(false)
 
   const [selectedFlavor, setSelectedFlavor] = useState<Flavor | null>(null)
   const [steps, setSteps]                   = useState<Step[]>([])
@@ -216,6 +226,8 @@ export default function FlavorsPage() {
   const [newFlavorSlug, setNewFlavorSlug]   = useState('')
   const [newFlavorDesc, setNewFlavorDesc]   = useState('')
 
+  const [searchQuery, setSearchQuery]       = useState('')
+
   const [stepModal, setStepModal]           = useState<{ mode: 'add' | 'edit', step?: Step } | null>(null)
   const [stepForm, setStepForm]             = useState<StepForm>(emptyStepForm())
 
@@ -223,6 +235,8 @@ export default function FlavorsPage() {
   const [generating, setGenerating]         = useState(false)
   const [captions, setCaptions]             = useState<string[]>([])
   const [genError, setGenError]             = useState('')
+  const [uploading, setUploading]           = useState(false)
+  const [uploadError, setUploadError]       = useState('')
 
   // ── auth + data load ──────────────────────────────────────────────────────
 
@@ -242,15 +256,26 @@ export default function FlavorsPage() {
         setUnauthorized(true); setLoading(false); return
       }
 
-      const [{ data: flavorData }, { data: modelData }, { data: imageData }] = await Promise.all([
+      const [{ data: flavorData }, { data: modelData }, { data: imageData }, { data: setsRaw, error: setsError }] = await Promise.all([
         supabase.from('humor_flavors').select('*').order('created_datetime_utc', { ascending: false }),
         supabase.from('llm_models').select('id, name').order('name'),
-        supabase.from('images').select('id, url').limit(50).order('created_at', { ascending: false }),
+        supabase.from('images').select('id, url').limit(50).order('created_datetime_utc', { ascending: false }),
+        supabase.from('study_image_sets').select('id, slug, description, created_datetime_utc, study_image_set_image_mappings(images(id, url))').order('created_datetime_utc', { ascending: false }),
       ])
 
       setFlavors(flavorData ?? [])
       setModels(modelData ?? [])
       setImages(imageData ?? [])
+
+      if (setsError) {
+        setImageSetsError(`Image sets failed to load: ${setsError.message}`)
+      } else {
+        const normalized = (setsRaw ?? []).map((s: any) => ({
+          id: s.id, slug: s.slug, description: s.description, created_datetime_utc: s.created_datetime_utc,
+          images: (s.study_image_set_image_mappings ?? []).map((r: any) => r.images).filter(Boolean),
+        }))
+        setImageSets(normalized)
+      }
       setLoading(false)
     }
     init()
@@ -370,20 +395,50 @@ export default function FlavorsPage() {
       const { data: { session } } = await supabase.auth.getSession()
       if (!session) throw new Error('Not logged in')
 
-      const res = await fetch(`${API_BASE}/pipeline/generate-captions`, {
+      const res = await fetch('/api/generate-captions', {
         method: 'POST',
         headers: { Authorization: `Bearer ${session.access_token}`, 'Content-Type': 'application/json' },
-        body: JSON.stringify({ imageId: Number(testImageId) }),
+        body: JSON.stringify({ imageId: testImageId }),
       })
 
-      if (!res.ok) throw new Error(`API error: ${res.status}`)
-      const data = await res.json()
-      const list = Array.isArray(data) ? data : (data.captions ?? data.data ?? [])
-      setCaptions(list.map((c: any) => c.content ?? c.caption ?? JSON.stringify(c)))
+      const data = await res.json().catch(() => null)
+      if (!res.ok) {
+        throw new Error(data?.error ?? `API error: ${res.status}`)
+      }
+      const captions = parseCaptionsResponse(data)
+      if (captions.length === 0) throw new Error('No captions returned — check that the image ID is valid and the pipeline is configured.')
+      setCaptions(captions)
     } catch (err: any) {
       setGenError(err.message || 'Something went wrong')
     } finally {
       setGenerating(false)
+    }
+  }
+
+  // ── upload image ─────────────────────────────────────────────────────────
+
+  async function uploadImage(file: File) {
+    setUploading(true); setUploadError('')
+    try {
+      const supabase = createClient()
+      const ext = file.name.split('.').pop() ?? 'jpg'
+      const path = `uploads/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`
+
+      const { error: storageErr } = await supabase.storage.from('images').upload(path, file, { contentType: file.type })
+      if (storageErr) throw new Error(storageErr.message)
+
+      const { data: { publicUrl } } = supabase.storage.from('images').getPublicUrl(path)
+
+      const { data: inserted, error: dbErr } = await supabase
+        .from('images').insert({ url: publicUrl }).select('id, url').single()
+      if (dbErr) throw new Error(dbErr.message)
+
+      setImages(prev => [inserted, ...prev])
+      setTestImageId(String(inserted.id))
+    } catch (err: any) {
+      setUploadError(err.message || 'Upload failed')
+    } finally {
+      setUploading(false)
     }
   }
 
@@ -412,6 +467,15 @@ export default function FlavorsPage() {
             </h1>
           </div>
           <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
+            {!selectedFlavor && (
+              <input
+                type="search"
+                value={searchQuery}
+                onChange={e => setSearchQuery(e.target.value)}
+                placeholder="Search flavors…"
+                style={{ padding: '6px 10px', fontSize: 12, border: '1px solid var(--border)', background: 'var(--bg)', color: 'var(--text)', borderRadius: 4, outline: 'none', width: 200 }}
+              />
+            )}
             <button
               type="button"
               onClick={() => setTheme(theme === 'dark' ? 'light' : theme === 'light' ? 'system' : 'dark')}
@@ -429,32 +493,49 @@ export default function FlavorsPage() {
 
         {!selectedFlavor && (
           <div>
-            {flavors.length === 0 && <p style={{ fontSize: 12, color: 'var(--text2)' }}>No flavors yet. Create your first one!</p>}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: 12 }}>
-              {flavors.map(flavor => (
-                <div
-                  key={flavor.id}
-                  style={{ border: '1px solid var(--border)', borderRadius: 6, padding: 18, backgroundColor: 'var(--bg2)', cursor: 'pointer', transition: 'border-color 0.15s' }}
-                  onClick={() => openFlavor(flavor)}
-                  className="flavor-card"
-                >
-                  <p style={{ fontSize: 13, fontWeight: 600, marginBottom: 6 }}>{flavor.slug}</p>
-                  <p style={{ fontSize: 12, color: 'var(--text2)', lineHeight: 1.5, marginBottom: 14, minHeight: 36 }}>
-                    {flavor.description?.slice(0, 100) ?? '—'}
-                  </p>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span style={{ fontSize: 10, color: 'var(--text2)', letterSpacing: '0.08em', textTransform: 'uppercase' }}>View steps →</span>
-                    <button
-                      type="button"
-                      onClick={e => { e.stopPropagation(); deleteFlavor(flavor.id) }}
-                      style={{ fontSize: 10, color: '#c0392b', background: 'none', border: 'none', cursor: 'pointer', letterSpacing: '0.06em', textTransform: 'uppercase' }}
-                    >
-                      Delete
-                    </button>
+            {(() => {
+              const q = searchQuery.trim().toLowerCase()
+              const filtered = q
+                ? flavors.filter(f => f.slug.toLowerCase().includes(q) || f.description?.toLowerCase().includes(q))
+                : flavors
+              return (
+                <>
+                  {filtered.length === 0 && (
+                    <p style={{ fontSize: 12, color: 'var(--text2)' }}>
+                      {flavors.length === 0 ? 'No flavors yet. Create your first one!' : 'No flavors match your search.'}
+                    </p>
+                  )}
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: 12 }}>
+                    {filtered.map(flavor => (
+                      <div
+                        key={flavor.id}
+                        style={{ border: '1px solid var(--border)', borderRadius: 6, padding: 18, backgroundColor: 'var(--bg2)', cursor: 'pointer', transition: 'border-color 0.15s' }}
+                        onClick={() => openFlavor(flavor)}
+                        className="flavor-card"
+                      >
+                        <p style={{ fontSize: 13, fontWeight: 600, marginBottom: 6 }}>{flavor.slug}</p>
+                        <p style={{ fontSize: 12, color: 'var(--text2)', lineHeight: 1.5, marginBottom: 8, minHeight: 36 }}>
+                          {flavor.description?.slice(0, 100) ?? '—'}
+                        </p>
+                        <p style={{ fontSize: 10, color: 'var(--text2)', marginBottom: 14, letterSpacing: '0.04em' }}>
+                          {new Date(flavor.created_datetime_utc).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                        </p>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                          <span style={{ fontSize: 10, color: 'var(--text2)', letterSpacing: '0.08em', textTransform: 'uppercase' }}>View steps →</span>
+                          <button
+                            type="button"
+                            onClick={e => { e.stopPropagation(); deleteFlavor(flavor.id) }}
+                            style={{ fontSize: 10, color: '#c0392b', background: 'none', border: 'none', cursor: 'pointer', letterSpacing: '0.06em', textTransform: 'uppercase' }}
+                          >
+                            Delete
+                          </button>
+                        </div>
+                      </div>
+                    ))}
                   </div>
-                </div>
-              ))}
-            </div>
+                </>
+              )
+            })()}
           </div>
         )}
 
@@ -532,48 +613,58 @@ export default function FlavorsPage() {
             <div style={{ border: '1px solid var(--border)', borderRadius: 6, padding: 20, backgroundColor: 'var(--bg2)', position: 'sticky', top: 90 }}>
               <p style={{ fontSize: 10, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--text2)', marginBottom: 16 }}>Test Flavor</p>
 
-              <Field label="Select Test Image">
-                <select
-                  value={testImageId}
-                  onChange={e => setTestImageId(e.target.value)}
-                  style={{ width: '100%', padding: '8px 10px', fontSize: 12, border: '1px solid var(--border)', background: 'var(--bg)', color: 'var(--text)', borderRadius: 4, outline: 'none' }}
-                >
-                  <option value="">— pick an image —</option>
-                  {images.map(img => (
-                    <option key={img.id} value={img.id}>ID {img.id}</option>
-                  ))}
-                </select>
-              </Field>
+              {(() => {
+                const selectedImg = testImageId ? [...images, ...imageSets.flatMap(s => s.images)].find(i => i.id === testImageId) : null
+                return (
+                  <>
+                    {selectedImg ? (
+                      <div style={{ marginBottom: 14 }}>
+                        <img
+                          src={selectedImg.url}
+                          alt="test"
+                          style={{ width: '100%', borderRadius: 4, border: '1px solid var(--border)', maxHeight: 180, objectFit: 'cover', marginBottom: 8 }}
+                        />
+                        <button
+                          type="button"
+                          onClick={() => setShowLibrary(true)}
+                          style={{ width: '100%', padding: '6px', fontSize: 11, border: '1px solid var(--border)', borderRadius: 4, background: 'var(--bg)', color: 'var(--text2)', cursor: 'pointer', letterSpacing: '0.06em', textTransform: 'uppercase' }}
+                        >
+                          Change Image
+                        </button>
+                      </div>
+                    ) : (
+                      <button
+                        type="button"
+                        onClick={() => setShowLibrary(true)}
+                        style={{ width: '100%', marginBottom: 14, padding: '20px', fontSize: 12, border: '1px dashed var(--border)', borderRadius: 6, background: 'var(--bg)', color: 'var(--text2)', cursor: 'pointer', textAlign: 'center' }}
+                      >
+                        <div style={{ fontSize: 22, marginBottom: 6 }}>🖼</div>
+                        <div style={{ letterSpacing: '0.06em', textTransform: 'uppercase', fontSize: 10 }}>Browse Image Library</div>
+                      </button>
+                    )}
 
-              {testImageId && images.find(i => i.id === Number(testImageId))?.url && (
-                <div style={{ marginBottom: 14 }}>
-                  <img
-                    src={images.find(i => i.id === Number(testImageId))!.url}
-                    alt="test"
-                    style={{ width: '100%', borderRadius: 4, border: '1px solid var(--border)', maxHeight: 180, objectFit: 'cover' }}
-                  />
-                </div>
-              )}
+                    <Btn variant="primary" onClick={generateCaptions}>
+                      {generating ? 'Generating…' : 'Generate Captions'}
+                    </Btn>
 
-              <Btn variant="primary" onClick={generateCaptions}>
-                {generating ? 'Generating…' : 'Generate Captions'}
-              </Btn>
+                    {genError && <p style={{ fontSize: 12, color: '#c0392b', marginTop: 12 }}>{genError}</p>}
 
-              {genError && <p style={{ fontSize: 12, color: '#c0392b', marginTop: 12 }}>{genError}</p>}
-
-              {captions.length > 0 && (
-                <div style={{ marginTop: 16 }}>
-                  <p style={{ fontSize: 9, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--text2)', marginBottom: 10 }}>
-                    Captions · {captions.length}
-                  </p>
-                  {captions.map((cap, i) => (
-                    <div key={i} style={{ padding: '10px 12px', border: '1px solid var(--border)', borderRadius: 4, marginBottom: 6, backgroundColor: 'var(--bg)', fontSize: 13, lineHeight: 1.5 }}>
-                      <span style={{ fontSize: 10, color: 'var(--text2)', marginRight: 8 }}>{i + 1}.</span>
-                      {cap}
-                    </div>
-                  ))}
-                </div>
-              )}
+                    {captions.length > 0 && (
+                      <div style={{ marginTop: 16 }}>
+                        <p style={{ fontSize: 9, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--text2)', marginBottom: 10 }}>
+                          Captions · {captions.length}
+                        </p>
+                        {captions.map((cap, i) => (
+                          <div key={i} style={{ padding: '10px 12px', border: '1px solid var(--border)', borderRadius: 4, marginBottom: 6, backgroundColor: 'var(--bg)', fontSize: 13, lineHeight: 1.5 }}>
+                            <span style={{ fontSize: 10, color: 'var(--text2)', marginRight: 8 }}>{i + 1}.</span>
+                            {cap}
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </>
+                )
+              })()}
             </div>
           </div>
         )}
@@ -602,6 +693,95 @@ export default function FlavorsPage() {
             <Btn variant="ghost" onClick={() => setStepModal(null)}>Cancel</Btn>
           </div>
         </Modal>
+      )}
+
+      {showLibrary && (
+        <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.55)', zIndex: 100, display: 'flex', alignItems: 'flex-start', justifyContent: 'center', padding: 32, overflowY: 'auto' }}>
+          <div style={{ background: 'var(--bg)', border: '1px solid var(--border)', borderRadius: 10, width: '100%', maxWidth: 900, padding: 32 }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 24 }}>
+              <div>
+                <p style={{ fontSize: 9, letterSpacing: '0.16em', textTransform: 'uppercase', color: 'var(--text2)', marginBottom: 6 }}>Study Image Sets</p>
+                <h2 style={{ fontSize: 22, fontWeight: 700, marginBottom: 4 }}>Study image set library</h2>
+                <p style={{ fontSize: 13, color: 'var(--text2)' }}>Choose an image set to test your flavor.</p>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+                <span style={{ fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text2)' }}>{imageSets.length} Sets</span>
+                <button type="button" onClick={() => setShowLibrary(false)} style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 20, color: 'var(--text2)', lineHeight: 1 }}>×</button>
+              </div>
+            </div>
+
+            {imageSetsError && <p style={{ fontSize: 12, color: '#c0392b', marginBottom: 16 }}>{imageSetsError}</p>}
+
+            {/* Upload option at the top */}
+            <div style={{ marginBottom: 20, padding: 16, border: '1px dashed var(--border)', borderRadius: 8 }}>
+              <p style={{ fontSize: 9, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--text2)', marginBottom: 8 }}>Or upload your own</p>
+              <label style={{ cursor: uploading ? 'default' : 'pointer' }}>
+                <input type="file" accept="image/*" style={{ display: 'none' }} disabled={uploading}
+                  onChange={e => { const f = e.target.files?.[0]; if (f) uploadImage(f); e.target.value = '' }} />
+                <span style={{ display: 'inline-block', padding: '7px 14px', fontSize: 11, border: '1px solid var(--border)', borderRadius: 4, background: 'var(--bg2)', color: 'var(--text2)', letterSpacing: '0.06em', textTransform: 'uppercase', cursor: uploading ? 'default' : 'pointer' }}>
+                  {uploading ? 'Uploading…' : '+ Upload Image'}
+                </span>
+              </label>
+              {uploadError && <p style={{ fontSize: 11, color: '#c0392b', marginTop: 8 }}>{uploadError}</p>}
+              {images.length > 0 && (
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginTop: 12 }}>
+                  {images.map(img => (
+                    <img key={img.id} src={img.url} alt="" title={`Image ${img.id}`}
+                      onClick={() => { setTestImageId(img.id); setShowLibrary(false); setCaptions([]); setGenError('') }}
+                      style={{ width: 48, height: 48, objectFit: 'cover', borderRadius: 6, cursor: 'pointer',
+                        border: testImageId === img.id ? '2px solid var(--accent)' : '2px solid transparent' }}
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {!imageSetsError && imageSets.length === 0 && (
+              <p style={{ fontSize: 12, color: 'var(--text2)' }}>No image sets found.</p>
+            )}
+
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(380px, 1fr))', gap: 16 }}>
+              {imageSets.map(set => (
+                <div key={set.id} style={{ border: '1px solid var(--border)', borderRadius: 8, padding: 20, background: 'var(--bg2)' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 10 }}>
+                    <div>
+                      <p style={{ fontSize: 9, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--text2)', marginBottom: 4 }}>Image Set</p>
+                      <p style={{ fontSize: 18, fontWeight: 700, marginBottom: 2 }}>{set.slug}</p>
+                      {set.description && (
+                        <p style={{ fontSize: 12, color: 'var(--text2)', lineHeight: 1.5 }}>{set.description}</p>
+                      )}
+                    </div>
+                    <span style={{ fontSize: 10, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--accent)', fontWeight: 600, whiteSpace: 'nowrap', marginLeft: 12 }}>
+                      {set.images.length} {set.images.length === 1 ? 'Image' : 'Images'}
+                    </span>
+                  </div>
+
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginTop: 12 }}>
+                    {set.images.map(img => (
+                      <img
+                        key={img.id}
+                        src={img.url}
+                        alt=""
+                        title={`Image ID ${img.id}`}
+                        onClick={() => { setTestImageId(img.id); setShowLibrary(false); setCaptions([]); setGenError('') }}
+                        style={{
+                          width: 48, height: 48, objectFit: 'cover', borderRadius: 6,
+                          border: testImageId === img.id ? '2px solid var(--accent)' : '2px solid transparent',
+                          cursor: 'pointer', transition: 'opacity 0.1s',
+                        }}
+                        onMouseEnter={e => (e.currentTarget.style.opacity = '0.8')}
+                        onMouseLeave={e => (e.currentTarget.style.opacity = '1')}
+                      />
+                    ))}
+                    {set.images.length === 0 && (
+                      <p style={{ fontSize: 11, color: 'var(--text2)' }}>No images in this set.</p>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       )}
 
       <style>{`

@@ -31,7 +31,9 @@ export async function updateSession(request: NextRequest) {
     if (
         !user &&
         request.nextUrl.pathname !== '/' &&
-        !request.nextUrl.pathname.startsWith('/auth')
+        !request.nextUrl.pathname.startsWith('/auth') &&
+        !request.nextUrl.pathname.startsWith('/api/test-auth') &&
+        !request.nextUrl.pathname.startsWith('/api/debug-session')
     ) {
         const url = request.nextUrl.clone()
         url.pathname = '/'
