@@ -12,37 +12,49 @@ export async function POST(req: NextRequest) {
   }
 
   const body = await req.json()
+  const targetUrl = `${pipelineUrl}/pipeline/generate-captions`
 
   let upstream: Response
   try {
-    upstream = await fetch(`${pipelineUrl}/pipeline/generate-captions`, {
+    upstream = await fetch(targetUrl, {
       method: 'POST',
       headers: {
         'Authorization': authHeader,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(body),
+      redirect: 'manual',
     })
   } catch (err: any) {
-    return NextResponse.json({ error: `Network error: ${err.message}` }, { status: 502 })
+    return NextResponse.json({
+      error: `Network error reaching pipeline`,
+      detail: err.message,
+      url: targetUrl,
+    }, { status: 502 })
   }
 
-  if (upstream.status >= 300 && upstream.status < 400) {
-    return NextResponse.json(
-      { error: `Pipeline API authentication failed. Status: ${upstream.status}` },
-      { status: 401 }
-    )
-  }
-
+  const status = upstream.status
   const contentType = upstream.headers.get('content-type') ?? ''
+
+  if (status >= 300 && status < 400) {
+    const location = upstream.headers.get('location') ?? '(none)'
+    return NextResponse.json({
+      error: `Pipeline redirected — not authenticated with pipeline API`,
+      upstreamStatus: status,
+      redirectTo: location,
+    }, { status: 401 })
+  }
+
   if (!contentType.includes('application/json')) {
     const text = await upstream.text().catch(() => '')
-    return NextResponse.json(
-      { error: `Pipeline API error (${upstream.status}): ${text.slice(0, 200)}` },
-      { status: 502 }
-    )
+    return NextResponse.json({
+      error: `Pipeline returned non-JSON response`,
+      upstreamStatus: status,
+      upstreamContentType: contentType,
+      upstreamBody: text.slice(0, 800),
+    }, { status: 502 })
   }
 
   const data = await upstream.json().catch(() => null)
-  return NextResponse.json(data, { status: upstream.status })
+  return NextResponse.json(data, { status })
 }

@@ -238,6 +238,11 @@ export default function FlavorsPage() {
   const [uploading, setUploading]           = useState(false)
   const [uploadError, setUploadError]       = useState('')
 
+  type SetRunRow = { imageId: string; url: string; status: 'pending' | 'running' | 'done' | 'error'; captions: string[]; error?: string }
+  const [selectedTestSet, setSelectedTestSet] = useState<ImageSet | null>(null)
+  const [setRunRows, setSetRunRows]           = useState<SetRunRow[]>([])
+  const [setRunning, setSetRunning]           = useState(false)
+
   // ── auth + data load ──────────────────────────────────────────────────────
 
   useEffect(() => {
@@ -403,16 +408,81 @@ export default function FlavorsPage() {
 
       const data = await res.json().catch(() => null)
       if (!res.ok) {
-        throw new Error(data?.error ?? `API error: ${res.status}`)
+        // data.error is a boolean in the pipeline response — use data.message for the real text
+        const msg = data?.message ?? data?.detail ?? (typeof data?.error === 'string' ? data.error : null) ?? `API error: ${res.status}`
+        throw new Error(`Pipeline ${res.status}: ${msg}`)
       }
-      const captions = parseCaptionsResponse(data)
-      if (captions.length === 0) throw new Error('No captions returned — check that the image ID is valid and the pipeline is configured.')
-      setCaptions(captions)
+
+      // Pipeline inserts captions asynchronously — wait briefly before querying.
+      await new Promise(resolve => setTimeout(resolve, 1500))
+
+      // Fetch the actual caption content directly from the captions table.
+      const { data: rows, error: fetchErr } = await supabase
+        .from('captions')
+        .select('content')
+        .eq('image_id', testImageId)
+        .eq('humor_flavor_id', selectedFlavor?.id)
+        .order('created_datetime_utc', { ascending: false })
+        .limit(10)
+
+      if (fetchErr) throw new Error(`Failed to load captions: ${fetchErr.message}`)
+      const captionTexts = (rows ?? []).map((r: any) => r.content).filter(Boolean) as string[]
+      if (captionTexts.length === 0) throw new Error('No captions returned — check that the image ID is valid and the pipeline is configured.')
+      setCaptions(captionTexts)
     } catch (err: any) {
       setGenError(err.message || 'Something went wrong')
     } finally {
       setGenerating(false)
     }
+  }
+
+  // ── generate captions for full image set ─────────────────────────────────
+
+  async function generateCaptionsForSet(set: ImageSet) {
+    if (!selectedFlavor) return
+    if (set.images.length === 0) { setGenError('This set has no images.'); return }
+
+    setSelectedTestSet(set)
+    setSetRunning(true)
+    setSetRunRows(set.images.map(img => ({ imageId: img.id, url: img.url, status: 'pending', captions: [] })))
+
+    const supabase = createClient()
+    const { data: { session } } = await supabase.auth.getSession()
+    if (!session) { setGenError('Not logged in'); setSetRunning(false); return }
+
+    for (const img of set.images) {
+      setSetRunRows(prev => prev.map(r => r.imageId === img.id ? { ...r, status: 'running' } : r))
+
+      try {
+        const res = await fetch('/api/generate-captions', {
+          method: 'POST',
+          headers: { Authorization: `Bearer ${session.access_token}`, 'Content-Type': 'application/json' },
+          body: JSON.stringify({ imageId: img.id, humorFlavorId: selectedFlavor.id }),
+        })
+        const data = await res.json().catch(() => null)
+        if (!res.ok) {
+          const msg = data?.message ?? data?.detail ?? (typeof data?.error === 'string' ? data.error : null) ?? `API error: ${res.status}`
+          throw new Error(`Pipeline ${res.status}: ${msg}`)
+        }
+
+        await new Promise(resolve => setTimeout(resolve, 1500))
+
+        const { data: rows } = await supabase
+          .from('captions')
+          .select('content')
+          .eq('image_id', img.id)
+          .eq('humor_flavor_id', selectedFlavor.id)
+          .order('created_datetime_utc', { ascending: false })
+          .limit(5)
+
+        const texts = (rows ?? []).map((r: any) => r.content).filter(Boolean) as string[]
+        setSetRunRows(prev => prev.map(r => r.imageId === img.id ? { ...r, status: 'done', captions: texts } : r))
+      } catch (err: any) {
+        setSetRunRows(prev => prev.map(r => r.imageId === img.id ? { ...r, status: 'error', error: err.message } : r))
+      }
+    }
+
+    setSetRunning(false)
   }
 
   // ── upload image ─────────────────────────────────────────────────────────
@@ -682,6 +752,40 @@ export default function FlavorsPage() {
                         ))}
                       </div>
                     )}
+
+                    {/* Set run results */}
+                    {setRunRows.length > 0 && (
+                      <div style={{ marginTop: 20, borderTop: '1px solid var(--border)', paddingTop: 16 }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
+                          <p style={{ fontSize: 9, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--text2)' }}>
+                            {selectedTestSet?.slug} · {setRunRows.length} images
+                          </p>
+                          {setRunning && <span style={{ fontSize: 10, color: 'var(--accent)' }}>Running…</span>}
+                        </div>
+                        {setRunRows.map(row => (
+                          <div key={row.imageId} style={{ marginBottom: 12, border: '1px solid var(--border)', borderRadius: 6, overflow: 'hidden' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 10px', background: 'var(--bg2)' }}>
+                              <img src={row.url} alt="" style={{ width: 32, height: 32, objectFit: 'cover', borderRadius: 3, flexShrink: 0 }} />
+                              <span style={{ fontSize: 10, color: 'var(--text2)', flex: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{row.imageId}</span>
+                              <span style={{
+                                fontSize: 9, letterSpacing: '0.1em', textTransform: 'uppercase', fontWeight: 600,
+                                color: row.status === 'done' ? '#27ae60' : row.status === 'error' ? '#c0392b' : row.status === 'running' ? 'var(--accent)' : 'var(--text2)',
+                              }}>
+                                {row.status === 'running' ? '●' : row.status === 'done' ? '✓' : row.status === 'error' ? '✗' : '·'} {row.status}
+                              </span>
+                            </div>
+                            {row.status === 'error' && (
+                              <p style={{ fontSize: 11, color: '#c0392b', padding: '6px 10px' }}>{row.error}</p>
+                            )}
+                            {row.captions.map((cap, i) => (
+                              <div key={i} style={{ padding: '8px 10px', borderTop: '1px solid var(--border)', fontSize: 12, lineHeight: 1.5 }}>
+                                <span style={{ fontSize: 10, color: 'var(--text2)', marginRight: 6 }}>{i + 1}.</span>{cap}
+                              </div>
+                            ))}
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </>
                 )
               })()}
@@ -771,9 +875,20 @@ export default function FlavorsPage() {
                         <p style={{ fontSize: 12, color: 'var(--text2)', lineHeight: 1.5 }}>{set.description}</p>
                       )}
                     </div>
-                    <span style={{ fontSize: 10, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--accent)', fontWeight: 600, whiteSpace: 'nowrap', marginLeft: 12 }}>
-                      {set.images.length} {set.images.length === 1 ? 'Image' : 'Images'}
-                    </span>
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 6, marginLeft: 12 }}>
+                      <span style={{ fontSize: 10, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--accent)', fontWeight: 600, whiteSpace: 'nowrap' }}>
+                        {set.images.length} {set.images.length === 1 ? 'Image' : 'Images'}
+                      </span>
+                      {set.images.length > 0 && (
+                        <button
+                          type="button"
+                          onClick={() => { generateCaptionsForSet(set); setShowLibrary(false) }}
+                          style={{ fontSize: 10, padding: '5px 10px', border: '1px solid var(--accent)', borderRadius: 4, background: 'var(--accent)', color: '#fff', cursor: 'pointer', letterSpacing: '0.06em', textTransform: 'uppercase', whiteSpace: 'nowrap' }}
+                        >
+                          Run Set
+                        </button>
+                      )}
+                    </div>
                   </div>
 
                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginTop: 12 }}>
